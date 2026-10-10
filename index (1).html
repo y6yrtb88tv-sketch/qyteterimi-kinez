@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Qytetërimi Kinez</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=EB+Garamond:wght@400;600;700&family=Cormorant+Garamond:wght@600;700&display=swap">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#e9dcc0;--card:#f4ead2;--ink:#2b1d10;--mute:#6b5638;--cobalt:#3b2412;--cobalt2:#8a2c1c;--jade:#5a6b3a;--land:#d9c79a;--seal:#a3231a;--line:#c4ad7c}
+:root:not([data-theme="light"]){}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1e160e;--card:#2a1f14;--ink:#efe3c8;--mute:#b9a37a;--cobalt:#120c06;--cobalt2:#d9a441;--jade:#a3b36c;--land:#3b2e1c;--line:#4a3a22}}
+:root[data-theme="dark"]{--bg:#1e160e;--card:#2a1f14;--ink:#efe3c8;--mute:#b9a37a;--cobalt:#120c06;--cobalt2:#d9a441;--jade:#a3b36c;--land:#3b2e1c;--line:#4a3a22}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .22 0 0 0 0 .1 0 0 0 .14 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");color:var(--ink);font:400 19px/1.6 'EB Garamond',Georgia,serif}
+h1,h2,h3{font-family:'Cormorant Garamond','Ma Shan Zheng',Georgia,serif;font-weight:700;line-height:1.1;margin:0}
+.wrap{max-width:980px;margin:0 auto;padding:0 20px}
+.hero{background:radial-gradient(circle at 80% 20%,#6b4a2a 0,#3b2412 50%,#1f1209 100%);color:#f4ead2;padding:64px 0 72px;position:relative;overflow:hidden}
+.hero .big{position:absolute;right:-10px;top:-30px;font:400 min(62vw,420px)/1 'Ma Shan Zheng','Kaiti SC',KaiTi,serif;color:#fff;opacity:.09;pointer-events:none;user-select:none}
+.hero h1{font-size:clamp(46px,11vw,96px)}
+.hero p{max-width:34em;font-size:19px;opacity:.92;margin:18px 0 26px}
+.seal{display:inline-block;background:var(--seal);color:#fff;font:400 26px/1 'Ma Shan Zheng',serif;padding:10px 8px;border-radius:4px;margin-bottom:18px;writing-mode:vertical-rl;letter-spacing:4px}
+.btns a{display:inline-block;margin:0 8px 8px 0;padding:11px 20px;border-radius:99px;background:#f4ead2;color:#3b2412;font-weight:700;text-decoration:none}
+.btns a.o{background:transparent;color:#f4ead2;border:1.5px solid #ffffff90}
+.stats{display:flex;flex-wrap:wrap;gap:10px 34px;margin-top:30px}
+.stats div{font-size:14px;opacity:.9}.stats b{display:block;font:400 34px 'Ma Shan Zheng',serif}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--card);border-bottom:1px solid var(--line);overflow-x:auto;white-space:nowrap}
+nav a{display:inline-block;padding:13px 16px;color:var(--ink);text-decoration:none;font-weight:600;font-size:15px}
+nav a:hover,nav a:focus-visible{color:var(--cobalt2);outline:none}
+section{padding:60px 0}
+h2{font-size:clamp(34px,7vw,52px);color:var(--cobalt2);margin-bottom:8px}
+.lead{color:var(--mute);max-width:40em;margin:0 0 28px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px}
+.mapbox{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px}
+svg{display:block;width:100%;height:auto}
+.land{fill:var(--land);stroke:var(--jade);stroke-width:2;stroke-linejoin:round}
+.silk{fill:none;stroke:#b8862b;stroke-width:3.5;stroke-dasharray:1 7;stroke-linecap:round}
+.river{fill:none;stroke:#5b7c8a;stroke-width:2.2;opacity:.55;stroke-linecap:round}
+.wall{fill:none;stroke:var(--seal);stroke-width:2.4;stroke-dasharray:7 5}
+.pin{cursor:pointer}.pin circle{fill:var(--seal);stroke:#fff;stroke-width:2;transition:r .2s}
+.pin:hover circle,.pin.on circle{r:11}.pin.on circle{fill:var(--cobalt2)}
+.pin text{font:600 13px Figtree,sans-serif;fill:var(--ink);paint-order:stroke;stroke:var(--bg);stroke-width:3px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.chip,.dyn button{font:600 14px Figtree,sans-serif;border:1.5px solid var(--line);background:var(--card);color:var(--ink);border-radius:99px;padding:8px 14px;cursor:pointer}
+.chip.on,.dyn button.on{background:var(--cobalt2);border-color:var(--cobalt2);color:#fff}
+.chip:focus-visible,.dyn button:focus-visible,.inv:focus-visible,.pin:focus-visible{outline:3px solid var(--jade);outline-offset:2px}
+.info h3{font-size:34px;color:var(--cobalt2)}.info .zh{float:right;font:400 54px 'Ma Shan Zheng',serif;color:var(--seal);line-height:1;margin-left:12px}
+.info p{margin:8px 0}.tag{color:var(--jade);font-weight:700}
+.dyn{display:flex;gap:8px;overflow-x:auto;padding-bottom:10px}.dyn button{white-space:nowrap}
+.bar{height:6px;background:var(--line);border-radius:9px;margin:6px 0 16px;overflow:hidden}.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--jade),var(--cobalt2));transition:width .4s}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}
+.inv{text-align:left;font:inherit;color:inherit;cursor:pointer;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;transition:transform .2s,border-color .2s}
+.inv:hover{transform:translateY(-4px);border-color:var(--cobalt2)}
+.inv .z{font:400 52px 'Ma Shan Zheng',serif;color:var(--seal);line-height:1}.inv h3{font-size:26px;margin:6px 0}
+.inv .more{display:none;color:var(--mute);font-size:15px;margin:8px 0 0}.inv.open .more{display:block}
+.words .w{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid var(--line)}
+.words .w:last-child{border:0}.words .c{font:400 40px 'Ma Shan Zheng',serif;min-width:92px;color:var(--cobalt2)}
+.words small{color:var(--mute)}
+.quiz button{display:block;width:100%;text-align:left;margin:8px 0;font:600 16px Figtree,sans-serif;padding:12px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.quiz button.ok{background:var(--jade);color:#fff;border-color:var(--jade)}.quiz button.no{border-color:var(--seal);color:var(--seal)}
+.next{background:var(--cobalt2)!important;color:#fff!important;text-align:center!important;border:0!important}
+footer{background:var(--cobalt);color:#e9dcc0;padding:34px 0;font-size:14px}
+.pin text,.chip,.dyn button,.quiz button{font-family:'EB Garamond',Georgia,serif;font-size:16px}
+.pin text{font-size:14px}
+.card,.mapbox,.inv{border-radius:4px;box-shadow:inset 0 0 0 4px var(--card),inset 0 0 0 5px var(--line)}
+.chip,.dyn button,.quiz button,.btns a{border-radius:4px}
+.tl{border-left:2px solid var(--line);margin-left:6px}
+.tl div{position:relative;padding:0 0 24px 26px}
+.tl div::before{content:'';position:absolute;left:-8px;top:9px;width:14px;height:14px;border-radius:50%;background:var(--seal);border:2px solid var(--bg)}
+.tl b{display:block;font:700 26px 'Cormorant Garamond',Georgia,serif;color:var(--cobalt2)}
+.tl p{margin:2px 0 0}
+@media (prefers-color-scheme:dark){.chip.on,.dyn button.on{color:#1e160e}.next{color:#1e160e!important}}
+main>section{display:none}main>section.on{display:block}
+body:not([data-p="home"]) .hero{display:none}
+nav a.cur{color:var(--cobalt2);box-shadow:inset 0 -3px 0 var(--cobalt2)}
+main{position:relative;overflow:hidden}
+main::before{position:absolute;z-index:-1;right:8px;top:4px;font:400 min(42vw,260px)/1 'Ma Shan Zheng','Kaiti SC',KaiTi,serif;opacity:.08;pointer-events:none}
+body[data-p="harta"] main::before{content:'地'}body[data-p="dinastite"] main::before{content:'朝'}body[data-p="ngjarjet"] main::before{content:'史'}body[data-p="shpikjet"] main::before{content:'明'}body[data-p="gjuha"] main::before{content:'字'}body[data-p="kuizi"] main::before{content:'问'}
+body[data-p="harta"]{--bg:#d3ddd0;--card:#eef2e6;--ink:#1d2b24;--mute:#4a5f55;--line:#a9bba8;--cobalt:#1f3d36;--cobalt2:#2b6a5c;--jade:#3d7a4a;--land:#f1e8ca}
+body[data-p="dinastite"]{--bg:#2e0f0c;--card:#431813;--ink:#f3e2c2;--mute:#cfae85;--line:#7a3a24;--cobalt:#1a0705;--cobalt2:#e3b24f;--jade:#e3b24f;--seal:#d9473a}
+body[data-p="ngjarjet"]{--bg:#f3ead4;--card:#fbf5e4;--ink:#2b1d10;--mute:#6b5638;--line:#d4c196;--cobalt:#3b2412;--cobalt2:#a3231a;--jade:#5a6b3a}
+body[data-p="shpikjet"]{--bg:#e6edf8;--card:#fff;--ink:#14286b;--mute:#4a5a8a;--line:#b6c5e6;--cobalt:#14286b;--cobalt2:#1f4fc0;--jade:#1f7a6a}
+body[data-p="gjuha"]{--bg:#faf8f1;--card:#fff;--ink:#1b1b1b;--mute:#5b5b5b;--line:#e3c7c3;--cobalt:#1b1b1b;--cobalt2:#b3261e;--jade:#6a6a6a}
+body[data-p="kuizi"]{--bg:#cfe3d6;--card:#eef7f0;--ink:#12382b;--mute:#3e6556;--line:#9cc4ae;--cobalt:#0e3a2c;--cobalt2:#1f7a5a;--jade:#1f7a5a}
+body[data-p] .chip.on,body[data-p] .dyn button.on{color:#fff}
+body[data-p] .next{color:#fff!important}
+body[data-p="harta"] h2,body[data-p="harta"] .lead,body[data-p="kuizi"] h2,body[data-p="kuizi"] .lead{text-align:center;margin-left:auto;margin-right:auto}
+body[data-p="harta"] h2{border-bottom:3px double var(--cobalt2);padding-bottom:8px}
+body[data-p="dinastite"] h2{letter-spacing:2px}
+body[data-p="dinastite"] .card,body[data-p="dinastite"] .dyn button{border-color:var(--cobalt2)}
+body[data-p="dinastite"] .dyn button.on{color:#2a0e0a}
+body[data-p="ngjarjet"] .wrap{max-width:720px}
+body[data-p="ngjarjet"] h2{font-size:clamp(40px,9vw,64px)}
+body[data-p="kuizi"] .wrap{max-width:640px}
+body[data-p="shpikjet"] .grid{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+body[data-p="shpikjet"] .inv{border:0;border-top:6px solid var(--cobalt2)}
+body[data-p="shpikjet"] .inv.open{background:var(--cobalt2);color:#fff}
+body[data-p="shpikjet"] .inv.open .z{color:#fff}
+body[data-p="shpikjet"] .inv.open .more,body[data-p="shpikjet"] .inv.open .tag{color:#e6edf8}
+body[data-p="gjuha"] .words .c{text-align:center;border:2px solid var(--cobalt2);padding:6px 0;background:linear-gradient(var(--line),var(--line)) center/1px 100% no-repeat,linear-gradient(var(--line),var(--line)) center/100% 1px no-repeat}
+.hc{display:block;text-decoration:none;color:inherit;padding:20px;border-radius:4px;background:var(--card);box-shadow:inset 0 0 0 4px var(--card),inset 0 0 0 5px var(--line);border:1px solid var(--line);transition:transform .2s}
+.hc:hover,.hc:focus-visible{transform:translateY(-4px);outline:none}
+.hc .z{font:400 56px/1 'Ma Shan Zheng',serif;color:var(--seal)}
+.hc h3{font-size:28px;margin:6px 0 4px;color:var(--cobalt2)}
+.hc p{margin:0;color:var(--mute);font-size:16px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="big" aria-hidden="true">中</div>
+  <div class="wrap">
+    <span class="seal" aria-hidden="true">中华</span>
+    <h1>Qytetërimi Kinez</h1>
+    <p>Një nga qytetërimet më të vjetra të gjalla në botë. Shkrim, mëndafsh, çaj, letër dhe pesë mijë vjet histori që ende shkruhet sot.</p>
+    <div class="btns"><a href="#harta">Eksploro hartën</a><a class="o" href="#dinastite">Udhëto në kohë</a></div>
+    <div class="stats">
+      <div><b>~5000</b>vjet histori</div>
+      <div><b>9.6 mln</b>km² sipërfaqe</div>
+      <div><b>56</b>grupe etnike zyrtare</div>
+      <div><b>21 196 km</b>gjatësia e Murit të Madh</div>
+    </div>
+  </div>
+</header>
+
+<nav aria-label="Seksionet"><div class="wrap">
+  <a href="#home">Ballina</a><a href="#harta">Harta</a><a href="#dinastite">Dinastitë</a><a href="#ngjarjet">Ngjarjet</a><a href="#shpikjet">Shpikjet</a><a href="#gjuha">Gjuha</a><a href="#kuizi">Kuiz</a>
+</div></nav>
+
+<main>
+<section id="home"><div class="wrap"><h2>Zgjidh një faqe</h2><div class="grid" id="home-grid"></div></div></section>
+<section id="harta"><div class="wrap">
+  <h2>Harta interaktive</h2>
+  <p class="lead">Prek një qytet në hartë (ose zgjidhe nga lista) dhe zbulo çfarë e bën të veçantë. Vija e kuqe me pika është Muri i Madh, vija e artë me pika është Rruga e Mëndafshit nga Xi'an drejt Kashgarit, ndërsa vijat blu-gri janë lumenjtë Yangtze dhe Lumi i Verdhë.</p>
+  <div class="mapbox"><svg id="map" viewBox="0 0 700 420" role="img" aria-label="Hartë e thjeshtuar e Kinës me qytete kryesore"></svg></div>
+  <div class="chips" id="chips" role="group" aria-label="Zgjidh qytetin"></div>
+  <div class="card info" id="info" aria-live="polite"></div>
+</div></section>
+
+<section id="dinastite"><div class="wrap">
+  <h2>Udhëtim nëpër dinastitë</h2>
+  <p class="lead">Zgjidh një periudhë dhe shiko si ndryshoi Kina nga mbretëritë e lashta te shteti modern.</p>
+  <div class="dyn" id="dyn" role="group" aria-label="Periudhat historike"></div>
+  <div class="bar"><i id="prog"></i></div>
+  <div class="card info" id="dinfo" aria-live="polite"></div>
+</div></section>
+
+<section id="ngjarjet"><div class="wrap">
+  <h2>Ngjarjet që ndryshuan historinë</h2>
+  <p class="lead">Dhjetë data që vlen t'i mbash mend për lëndën e historisë, nga Konfuci deri te Kina e sotme.</p>
+  <div class="card"><div class="tl" id="evs"></div></div>
+</div></section>
+
+<section id="shpikjet"><div class="wrap">
+  <h2>Katër shpikjet e mëdha</h2>
+  <p class="lead">Katër shpikje kineze ndryshuan rrjedhën e historisë botërore. Kliko një kartë për detaje.</p>
+  <div class="grid" id="inv"></div>
+</div></section>
+
+<section id="gjuha"><div class="wrap">
+  <h2>Mëso pak kinezisht</h2>
+  <p class="lead">Kinezishtja shkruhet me karaktere, jo me shkronja. Çdo karakter është një njësi kuptimi dhe shumë prej tyre kanë lindur nga fotografi të thjeshta.</p>
+  <div class="card words" id="words"></div>
+</div></section>
+
+<section id="kuizi"><div class="wrap">
+  <h2>Sa e njeh Kinën?</h2>
+  <p class="lead">Pesë pyetje të shpejta.</p>
+  <div class="card quiz" id="quiz" aria-live="polite"></div>
+</div></section>
+</main>
+
+<footer><div class="wrap">Faqe edukative për lëndën e historisë. Harta është një skicë e thjeshtuar dhe jo një hartë zyrtare; datat e hershme janë të përafërta.</div></footer>
+
+<script>
+const $=s=>document.querySelector(s);
+/* ---------- HARTA ---------- */
+const P=(lo,la)=>[(lo-73)*11,(54.5-la)*11];
+const outline=[[73.5,39.5],[75,37],[78,35.5],[79,32.5],[81,30],[85,28],[88,27.8],[92,28],[96,28.5],[98,27.5],[98.5,24],[101,21.5],[103,22.5],[106,22.8],[108,21.5],[110.5,21],[113,22],[117,23.5],[119.5,25.5],[121.5,28.5],[122,30.8],[120.8,32.5],[119.5,34.5],[121,37],[122.5,37.3],[120,38.5],[118,39],[121.5,40.5],[124,40],[125,40.5],[128,42],[130.5,42.6],[131,45],[133,48],[135,48.4],[132,47.7],[130,48.5],[127.5,50],[125,53.4],[121,53],[119,52.5],[117,49.8],[119.5,47],[116,45.5],[112,43.5],[111,42],[106,41.5],[102,42.5],[97,42.8],[95,44],[91,45.5],[90,47.5],[87.5,49],[85,47],[83,47],[80.5,45],[80,42.5],[77,41],[74,40]];
+const pts=a=>a.map(c=>P(...c).join(',')).join(' ');
+const yangtze=[[91,33],[96,32],[100,29],[103,28],[106,29.5],[110,30.7],[114,30.5],[117,30.8],[119.5,32],[121.8,31.5]];
+const huang=[[96,35],[100,35.5],[103,36.2],[106,38.5],[109,40.8],[111,39],[110.5,35.5],[114,34.8],[117,37],[119,37.7]];
+const OUT=[[73.6,39.5],[74.9,37.3],[75.9,36.9],[76.0,35.8],[77.8,35.5],[78.9,34.3],[79.3,32.5],[78.8,31.0],[80.2,30.2],[81.5,30.3],[83.2,29.6],[84.2,28.8],[85.8,28.3],[86.9,28.0],[88.1,27.9],[88.8,28.1],[89.5,28.2],[91.6,27.8],[92.5,28.1],[93.5,28.6],[95.2,29.2],[96.1,28.3],[97.2,28.2],[98.2,27.5],[98.7,26.2],[97.8,25.2],[98.7,24.2],[99.5,22.9],[101.1,21.8],[101.8,21.2],[102.9,22.5],[104.0,22.8],[105.3,23.3],[106.7,22.9],[108.0,21.6],[109.5,21.6],[109.9,21.4],[110.4,20.3],[110.5,21.1],[111.5,21.5],[113.0,22.1],[114.0,22.4],[115.5,22.7],[117.0,23.4],[118.2,24.4],[119.5,25.6],[120.2,26.7],[121.2,28.2],[121.9,29.8],[121.0,30.6],[121.9,31.0],[121.9,31.8],[120.9,32.5],[120.4,34.0],[119.3,35.1],[120.4,36.1],[122.5,37.4],[121.2,37.6],[119.0,37.2],[118.9,37.9],[118.0,39.1],[119.5,39.9],[121.0,40.8],[122.3,40.4],[121.7,39.0],[121.0,38.9],[122.0,39.7],[123.5,39.7],[124.4,40.0],[125.5,40.5],[126.5,41.4],[128.0,41.9],[129.5,42.4],[130.6,42.4],[130.6,43.0],[131.3,43.5],[131.0,44.9],[131.9,45.4],[133.1,45.1],[134.7,47.7],[134.2,48.4],[132.5,47.7],[131.0,47.7],[130.7,48.9],[127.5,49.8],[126.0,52.8],[125.0,53.2],[123.5,53.5],[121.5,53.3],[120.0,52.8],[119.2,52.5],[118.3,51.7],[117.3,49.5],[119.7,47.0],[117.4,46.5],[116.0,45.1],[113.6,44.8],[111.9,43.7],[111.0,43.3],[110.0,42.6],[107.0,42.2],[105.0,41.6],[102.0,42.2],[101.8,42.5],[99.5,42.6],[97.2,42.8],[96.4,42.7],[95.3,44.3],[93.5,45.0],[91.0,46.6],[90.7,47.7],[90.1,47.9],[88.8,48.1],[87.8,49.2],[87.3,49.1],[86.8,48.0],[85.5,47.1],[83.0,47.2],[82.3,45.5],[80.3,45.0],[80.0,43.0],[80.2,42.2],[78.4,41.4],[76.8,41.0],[75.7,40.3],[74.9,40.3]];
+const YZ=[[91.2,33.4],[93,33],[96.5,33],[97.5,32],[99,29.5],[100.5,27.2],[102,27.5],[103.5,28.5],[104.8,28.8],[106.5,29.6],[108,30.8],[109.5,31],[111.3,30.7],[112.2,29.8],[113.2,29.4],[114.3,30.6],[115.8,29.9],[117.2,30.5],[118.4,31.3],[119.5,32.2],[120.8,31.8],[121.8,31.4]];
+const HH=[[96,35],[100.7,34.4],[102.5,35.6],[103.8,36.1],[105.5,37.5],[106.8,38.5],[106.5,39.5],[108,40.7],[111,40.5],[111.4,39.5],[110.5,37],[110.4,35.5],[110.3,34.6],[111.5,34.8],[113.5,34.9],[115,35.7],[116.5,36.6],[118.5,37.5],[119.1,37.7]];
+const WL=[[98.2,39.8],[102.5,38.5],[106.5,37.8],[108.5,38.3],[111,39.7],[112.5,40.3],[115.5,40.5],[117.5,40.7],[119.8,40.0]];
+const silk=[[108.9,34.3],[103.8,36.1],[98,39.7],[94.7,40.1],[89,42.9],[84,41.7],[80,41.2],[76,39.5]];
+const wall=[[98,39.8],[102,38.5],[106,38.2],[110,38.5],[113,40.4],[116,40.6],[119,40.4],[122,40.3]];
+const cities=[
+{n:'Pekini',zh:'北京',lo:116.4,la:39.9,t:'Kryeqyteti',p:'Pekini ka qenë qendra e pushtetit për shekuj me radhë. Këtu ndodhet Qyteti i Ndaluar, pallati i perandorëve Ming dhe Qing me gati 1000 ndërtesa. Afër tij ngrihen pjesët më të vizituara të Murit të Madh.',f:'Pekini është i vetmi qytet që ka organizuar Olimpiadën e Verës dhe atë të Dimrit.'},
+{n:'Xi\'an',zh:'西安',lo:108.9,la:34.3,t:'Ish-kryeqyteti i 13 dinastive',p:'Nga Xi\'an nisej Rruga e Mëndafshit. Pranë tij u gjet Ushtria e Terrakotës: mijëra luftëtarë prej balte të varrosur për të ruajtur perandorin Qin Shi Huang në jetën e përtejme.',f:'Çdo luftëtar prej balte ka fytyrë të ndryshme nga tjetri.'},
+{n:'Shangai',zh:'上海',lo:121.5,la:31.2,t:'Metropoli i së ardhmes',p:'Nga një port peshkimi është bërë qyteti më i madh i vendit dhe qendra financiare e Kinës. Skyline i Pudongut me kullat e tij është simboli i Kinës moderne, ndërsa Bund-i ruan arkitekturën e fillimit të shek. XX.',f:'Treni maglev i Shangait arrin 431 km/orë.'},
+{n:'Chengdu',zh:'成都',lo:104.1,la:30.7,t:'Shtëpia e pandave',p:'Chengdu është i njohur për çajtoret e qeta, kuzhinën e Sichuanit me piper djegës dhe qendrën e kërkimit dhe mbarështimit të pandave gjigante.',f:'Panda gjigante ha deri në 12 kg bambu në ditë.'},
+{n:'Guilin',zh:'桂林',lo:110.3,la:25.3,t:'Peizazhi i pikturave',p:'Kodrat karstike, lumi Li dhe tarracat e orizit kanë frymëzuar poetë dhe piktorë për shekuj. Bregu i lumit shfaqet edhe në kartëmonedhën 20 juanëshe.',f:'Bambu-barkat me karakatica peshkimi janë traditë e vjetër e lumit Li.'},
+{n:'Hangzhou',zh:'杭州',lo:120.2,la:30.3,t:'Qyteti i çajit dhe i poezisë',p:'Liqeni Perëndimor me pagoda, ura dhe kopshte është një ndër vendet më të poetizuara të vendit. Rreth qytetit rritet çaji i gjelbër Longjing, ndër më të çmuarit.',f:'Marco Polo e quajti Hangzhou «qyteti më i bukur dhe më i shkëlqyer në botë».'},
+{n:'Lhasa',zh:'拉萨',lo:91.1,la:29.7,t:'Çatia e botës',p:'Në mbi 3600 m lartësi, Lhasa është qendra shpirtërore e budizmit tibetian. Pallati Potala mbi kodër është një nga ndërtesat më ikonike të Azisë.',f:'Ajri këtu ka rreth 35% më pak oksigjen se në nivelin e detit.'},
+{n:'Kashgar',zh:'喀什',lo:76.0,la:39.5,t:'Porta e perëndimit',p:'Qyteti i vjetër i Kashgarit ishte stacion i madh i Rrugës së Mëndafshit. Pazari i së dielës është një prej më të vjetrave dhe më të gjallëve në Azinë Qendrore.',f:'Këtu takohen kultura kineze, turke dhe persiane.'},
+{n:'Harbin',zh:'哈尔滨',lo:126.6,la:45.8,t:'Qyteti i akullit',p:'Çdo dimër Harbini ndërton një qytet të plotë me skulptura akulli dhe bore, të ndriçuara natën me ngjyra. Është një nga festivalet dimërore më të mëdha në botë.',f:'Temperaturat në janar mund të zbresin nën −25 °C.'},
+{n:'Guangzhou',zh:'广州',lo:113.3,la:23.1,t:'Kryeqyteti i kuzhinës',p:'Porti jugor ka tregtuar me botën për më shumë se 2000 vjet. Është shtëpia e kuzhinës kantoneze dhe e dim sum, vakti i vogël i çajit me shumë pjata.',f:'Në Kinë thuhet «ha në Guangzhou», sepse kuzhina e qytetit konsiderohet ndër më të mirat.'}
+];
+(function(){
+ const s=$('#map');const [hx,hy]=P(109.7,19.2);
+ let h=`<polygon class="land" points="${pts(OUT)}"/><ellipse class="land" cx="${hx}" cy="${hy}" rx="12" ry="9"/>`;
+ h+=`<polyline class="river" points="${pts(YZ)}"/><polyline class="river" points="${pts(HH)}"/><polyline class="wall" points="${pts(WL)}"/><polyline class="silk" points="${pts(silk)}"/>`;
+ cities.forEach((c,i)=>{const [x,y]=P(c.lo,c.la);const left=['Lhasa','Chengdu','Xi\'an'].includes(c.n);
+  h+=`<g class="pin" tabindex="0" role="button" aria-label="${c.n}" data-i="${i}"><circle cx="${x}" cy="${y}" r="8"/><text x="${x+(left?-14:14)}" y="${y+4}" text-anchor="${left?'end':'start'}">${c.n}</text></g>`});
+ s.innerHTML=h;
+ const chips=$('#chips');chips.innerHTML=cities.map((c,i)=>`<button class="chip" data-i="${i}">${c.n}</button>`).join('');
+ const show=i=>{const c=cities[i];
+  document.querySelectorAll('.pin').forEach(p=>p.classList.toggle('on',p.dataset.i==i));
+  document.querySelectorAll('.chip').forEach(p=>p.classList.toggle('on',p.dataset.i==i));
+  $('#info').innerHTML=`<span class="zh" aria-hidden="true">${c.zh}</span><h3>${c.n}</h3><div class="tag">${c.t}</div><p>${c.p}</p><p><b>E dinit?</b> ${c.f}</p>`};
+ s.addEventListener('click',e=>{const g=e.target.closest('.pin');if(g)show(+g.dataset.i)});
+ s.addEventListener('keydown',e=>{const g=e.target.closest('.pin');if(g&&(e.key==='Enter'||e.key===' ')){e.preventDefault();show(+g.dataset.i)}});
+ chips.addEventListener('click',e=>{const b=e.target.closest('.chip');if(b)show(+b.dataset.i)});
+ show(0);
+})();
+/* ---------- DINASTITE ---------- */
+const D=[
+['Xia & Shang','Xia ~2070–1600, Shang ~1600–1046 pes','Dy dinastitë e para; Xia njihet nga burime të vonë dhe historianët ende diskutojnë për të. Nga Shang kanë mbijetuar shkrimet e para kineze, të gdhendura mbi kocka orakulli dhe guaskat e breshkave. Bronzi arrin majat e artit.'],
+['Zhou','1046–256 pes','Dinastia më e gjatë në histori. Në fund të saj lulëzojnë Konfuci, Laozi dhe «njëqind shkollat e mendimit», themelet e filozofisë kineze.'],
+['Qin','221–206 pes','Qin Shi Huang bashkon vendin për herë të parë, standardizon shkrimin, monedhat dhe masat dhe fillon ndërtimin e Murit të Madh. Fjala «China» besohet se vjen nga emri Qin.'],
+['Han','206 pes–220 pas','Kina hap Rrugën e Mëndafshit drejt Perëndimit. Shpikja e letrës dhe zhvillimi i shkencës e bëjnë këtë një epokë të artë; sot shumica e kinezëve e quajnë veten «Han».'],
+['Tang','618–907','Epoka e artë e poezisë, e tregtisë dhe e kozmopolitizmit. Kryeqyteti Chang\'an (Xi\'an) është një nga qytetet më të mëdha në botë.'],
+['Song','960–1279','Shpërthim teknologjik: shtypshkronja me germa të lëvizshme, busulla në lundrim, barutha dhe monedha e parë prej letre. Piktura e peizazhit arrin majën.'],
+['Yuan','1271–1368','Mongolët e Kubilai Kanit sundojnë Kinën. Marco Polo viziton oborrin e tij dhe Pekini bëhet kryeqytet.'],
+['Ming','1368–1644','Ndërtohet Qyteti i Ndaluar, rindërtohet Muri i Madh dhe porcelani blu-e-bardhë bëhet i famshëm në gjithë botën. Admirali Zheng He lundron deri në Afrikë.'],
+['Qing','1644–1912','Dinastia e fundit perandorake. Territori arrin përmasat e sotme, por shek. XIX sjell luftërat e opiumit dhe dobësimin e shtetit.'],
+['Kina moderne','1912–sot','Nga Republika e vitit 1912 te Republika Popullore e vitit 1949, dhe nga reformat e vitit 1978 deri te ekonomia që sot është ndër më të mëdhatë në botë.']
+];
+(function(){
+ const b=$('#dyn');b.innerHTML=D.map((d,i)=>`<button data-i="${i}">${d[0]}</button>`).join('');
+ const show=i=>{const d=D[i];b.querySelectorAll('button').forEach((x,j)=>x.classList.toggle('on',i===j));
+  $('#prog').style.width=((i+1)/D.length*100)+'%';
+  $('#dinfo').innerHTML=`<h3>${d[0]}</h3><div class="tag">${d[1]}</div><p>${d[2]}</p>`};
+ b.addEventListener('click',e=>{const x=e.target.closest('button');if(x)show(+x.dataset.i)});show(0);
+})();
+/* ---------- NGJARJET ---------- */
+const E=[['551 pes','Lind Konfuci','Mendimtari që vë në qendër të shoqërisë respektin, arsimin dhe detyrat ndaj familjes. Mësimet e tij formuan kulturën kineze për më shumë se dy mijë vjet.'],
+['221 pes','Qin bashkon Kinën','Qin Shi Huang mposht shtetet rivale dhe krijon perandorinë e parë të bashkuar, me shkrim, monedha dhe masa të njësuara.'],
+['rreth 138 pes','Zhang Qian udhëton drejt perëndimit','I dërguar nga perandori Han, eksploron Azinë Qendrore. Udhëtimi i tij hap rrugët që më vonë njihen si Rruga e Mëndafshit.'],
+['105 pas','Letra përmirësohet nga Cai Lun','Sipas traditës kineze, oborrtari Cai Lun përpunon një metodë praktike për prodhimin e letrës nga fibra bimore.'],
+['868','Libri i parë i shtypur me datë','Sutra e Diamantit, gjetur në Dunhuang, është libri më i vjetër i shtypur që ka datë të sigurt.'],
+['1405–1433','Udhëtimet e Zheng He','Admirali Zheng He drejton shtatë ekspedita të mëdha detare drejt Azisë Juglindore, Indisë dhe bregut lindor të Afrikës.'],
+['1644','Qing marrin pushtetin','Mandzhurianët hyjnë në Pekin dhe themelojnë dinastinë e fundit perandorake, që do të sundonte deri në 1912.'],
+['1839–1842','Lufta e Parë e Opiumit','Konflikti me Britaninë e Madhe për tregtinë e opiumit mbaron me Traktatin e Nankingut dhe hap një periudhë të gjatë ndikimi të huaj mbi Kinën.'],
+['1911–1912','Bie perandoria','Revolucioni Xinhai rrëzon dinastinë Qing dhe shpallet Republika e Kinës, me Sun Yat-senin si figurë udhëheqëse.'],
+['1949','Republika Popullore e Kinës','Mao Zedong shpall më 1 tetor 1949 shtetin e ri në Pekin, pas vitesh luftërash civile.']];
+$('#evs').innerHTML=E.map(e=>`<div><b>${e[0]}</b><strong>${e[1]}</strong><p>${e[2]}</p></div>`).join('');
+/* ---------- SHPIKJET ---------- */
+const I=[
+['纸','Letra','Rreth vitit 105 pas Krishtit, oborrtari Cai Lun përpunoi një metodë më praktike për prodhimin e letrës nga fibra bimore. Shkrimi u bë më i lirë dhe dija u përhap.'],
+['火药','Barutha','U zbulua nga alkimistët që kërkonin eliksirin e jetës. Fillimisht përdorej për fishekzjarre dhe ceremoni, më vonë edhe për armë.'],
+['指南针','Busulla','Së pari përdorej për orientim në ndërtime dhe vendosjen e shtëpive. Në epokën Song hyri në lundrim dhe e bëri të mundur udhëtimin në det të hapur.'],
+['印刷','Shtypi','Blloqet e drurit për shtyp ekzistonin që në epokën Tang, ndërsa Bi Sheng shpiku germat e lëvizshme rreth vitit 1040, rreth 400 vjet para Gutenbergut.']
+];
+$('#inv').innerHTML=I.map(x=>`<button class="inv" aria-expanded="false"><div class="z" aria-hidden="true">${x[0]}</div><h3>${x[1]}</h3><div class="tag">Kliko për më shumë</div><p class="more">${x[2]}</p></button>`).join('');
+$('#inv').addEventListener('click',e=>{const k=e.target.closest('.inv');if(!k)return;const o=k.classList.toggle('open');k.setAttribute('aria-expanded',o)});
+/* ---------- GJUHA ---------- */
+const W=[['你好','Nǐ hǎo','Përshëndetje'],['谢谢','Xièxie','Faleminderit'],['水','shuǐ','Ujë (vizatim i rrjedhës)'],['山','shān','Mal (tri maja)'],['人','rén','Njeri (dy këmbë që ecin)'],['爱','ài','Dashuri'],['龙','lóng','Dragua, simbol i fuqisë dhe i fatit të mirë']];
+$('#words').innerHTML=W.map(w=>`<div class="w"><div class="c">${w[0]}</div><div><b>${w[1]}</b><br><small>${w[2]}</small></div></div>`).join('');
+/* ---------- KUIZI ---------- */
+const Q=[
+['Cili ishte perandori që bashkoi Kinën në vitin 221 pes?',['Qin Shi Huang','Kubilai Kan','Konfuci'],0],
+['Në cilin qytet gjendet Ushtria e Terrakotës?',['Shangai','Xi\'an','Guilin'],1],
+['Çfarë transportonte kryesisht Rruga e Mëndafshit?',['Vetëm armë','Mëndafsh, çaj dhe erëza','Vetëm ar'],1],
+['Cila shpikje u përhap nga Kina për të ndihmuar lundrimin?',['Busulla','Teleskopi','Ora me rërë'],0],
+['Çfarë do të thotë 谢谢 (Xièxie)?',['Mirupafshim','Ndjesë','Faleminderit'],2]
+];
+let qi=0,sc=0;
+function quiz(){const el=$('#quiz');
+ if(qi>=Q.length){el.innerHTML=`<h3>Rezultati: ${sc} nga ${Q.length}</h3><p>${sc>=4?'Shkëlqyeshëm! Je gati për një udhëtim në Kinë.':'Mirë! Rilexo seksionet dhe provo përsëri.'}</p><button class="next" id="again">Provo përsëri</button>`;
+  $('#again').onclick=()=>{qi=0;sc=0;quiz()};return}
+ const q=Q[qi];el.innerHTML=`<div class="tag">Pyetja ${qi+1} nga ${Q.length}</div><p><b>${q[0]}</b></p>`+q[1].map((o,i)=>`<button data-i="${i}">${o}</button>`).join('');
+ el.onclick=e=>{const b=e.target.closest('button');if(!b||b.classList.contains('next')||el.dataset.done==qi)return;
+  el.dataset.done=qi;const i=+b.dataset.i;if(i===q[2])sc++;
+  el.querySelectorAll('button').forEach((x,j)=>{if(j===q[2])x.classList.add('ok');else if(j===i)x.classList.add('no')});
+  el.insertAdjacentHTML('beforeend','<button class="next" id="nx">'+(qi===Q.length-1?'Shiko rezultatin':'Pyetja tjetër')+'</button>');
+  $('#nx').onclick=()=>{qi++;el.dataset.done='';quiz()}};
+}
+quiz();
+const H=[['harta','地','Harta interaktive','10 qytete, Muri i Madh dhe Rruga e Mëndafshit.','#2b6a5c'],['dinastite','朝','Dinastië','Nga Xia dhe Shang deri te Kina moderne.','#a3231a'],['ngjarjet','史','Ngjarjet','10 data kyçe për lëndën e historisë.','#b8862b'],['shpikjet','明','Shpikjet','Letra, barutha, busulla dhe shtypi.','#1f4fc0'],['gjuha','字','Gjuha','Mëso karakteret dhe fjalët e para.','#1b1b1b'],['kuizi','问','Kuizi','Testo ç’di më shënuar.','#1f7a5a']];
+$('#home-grid').innerHTML=H.map(h=>`<a class="hc" href="#${h[0]}" style="border-top:6px solid ${h[4]}"><div class="z" aria-hidden="true">${h[1]}</div><h3>${h[2]}</h3><p>${h[3]}</p></a>`).join('');
+const PG=['home','harta','dinastite','ngjarjet','shpikjet','gjuha','kuizi'];
+function go(){let p=location.hash.slice(1);if(!PG.includes(p))p='home';document.body.dataset.p=p;
+ document.querySelectorAll('main>section').forEach(s=>s.classList.toggle('on',s.id===p));
+ document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('cur',a.getAttribute('href')==='#'+p));window.scrollTo(0,0)}
+addEventListener('hashchange',go);go();
+</script>
+</body>
+</html>
