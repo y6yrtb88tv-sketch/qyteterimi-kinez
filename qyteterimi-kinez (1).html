@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Qytetërimi Kinez</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=EB+Garamond:wght@400;600;700&family=Cormorant+Garamond:wght@600;700&display=swap">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#e9dcc0;--card:#f4ead2;--ink:#2b1d10;--mute:#6b5638;--cobalt:#3b2412;--cobalt2:#8a2c1c;--jade:#5a6b3a;--land:#d9c79a;--seal:#a3231a;--line:#c4ad7c}
+:root:not([data-theme="light"]){}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1e160e;--card:#2a1f14;--ink:#efe3c8;--mute:#b9a37a;--cobalt:#120c06;--cobalt2:#d9a441;--jade:#a3b36c;--land:#3b2e1c;--line:#4a3a22}}
+:root[data-theme="dark"]{--bg:#1e160e;--card:#2a1f14;--ink:#efe3c8;--mute:#b9a37a;--cobalt:#120c06;--cobalt2:#d9a441;--jade:#a3b36c;--land:#3b2e1c;--line:#4a3a22}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .22 0 0 0 0 .1 0 0 0 .14 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");color:var(--ink);font:400 19px/1.6 'EB Garamond',Georgia,serif}
+h1,h2,h3{font-family:'Cormorant Garamond','Ma Shan Zheng',Georgia,serif;font-weight:700;line-height:1.1;margin:0}
+.wrap{max-width:980px;margin:0 auto;padding:0 20px}
+.hero{padding-bottom:120px!important;background:radial-gradient(circle at 80% 20%,#6b4a2a 0,#3b2412 50%,#1f1209 100%);color:#f4ead2;padding:64px 0 72px;position:relative;overflow:hidden}
+.hero .big{position:absolute;right:-10px;top:-30px;font:400 min(62vw,420px)/1 'Ma Shan Zheng','Kaiti SC',KaiTi,serif;color:#fff;opacity:.09;pointer-events:none;user-select:none}
+.hero h1{font-size:clamp(46px,11vw,96px)}
+.hero p{max-width:34em;font-size:19px;opacity:.92;margin:18px 0 26px}
+.seal{display:inline-block;background:var(--seal);color:#fff;font:400 26px/1 'Ma Shan Zheng',serif;padding:10px 8px;border-radius:4px;margin-bottom:18px;writing-mode:vertical-rl;letter-spacing:4px}
+.btns a{display:inline-block;margin:0 8px 8px 0;padding:11px 20px;border-radius:99px;background:#f4ead2;color:#3b2412;font-weight:700;text-decoration:none}
+.btns a.o{background:transparent;color:#f4ead2;border:1.5px solid #ffffff90}
+.stats{display:flex;flex-wrap:wrap;gap:10px 34px;margin-top:30px}
+.stats div{font-size:14px;opacity:.9}.stats b{display:block;font:400 34px 'Ma Shan Zheng',serif}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--card);border-bottom:1px solid var(--line);overflow-x:auto;white-space:nowrap}
+nav a{display:inline-block;padding:13px 16px;color:var(--ink);text-decoration:none;font-weight:600;font-size:15px}
+nav a:hover,nav a:focus-visible{color:var(--cobalt2);outline:none}
+section{padding:60px 0}
+h2{font-size:clamp(34px,7vw,52px);color:var(--cobalt2);margin-bottom:8px}
+.lead{color:var(--mute);max-width:40em;margin:0 0 28px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px}
+.mapbox{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px}
+svg{display:block;width:100%;height:auto}
+.land{fill:var(--land);stroke:var(--jade);stroke-width:2;stroke-linejoin:round}
+.silk{fill:none;stroke:#b8862b;stroke-width:3.5;stroke-dasharray:1 7;stroke-linecap:round}
+.river{fill:none;stroke:#5b7c8a;stroke-width:2.2;opacity:.55;stroke-linecap:round}
+.wall{fill:none;stroke:var(--seal);stroke-width:2.4;stroke-dasharray:7 5}
+.pin{cursor:pointer}.pin circle{fill:var(--seal);stroke:#fff;stroke-width:2;transition:r .2s}
+.pin:hover circle,.pin.on circle{r:11}.pin.on circle{fill:var(--cobalt2)}
+.pin text{font:600 13px Figtree,sans-serif;fill:var(--ink);paint-order:stroke;stroke:var(--bg);stroke-width:3px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.chip,.dyn button{font:600 14px Figtree,sans-serif;border:1.5px solid var(--line);background:var(--card);color:var(--ink);border-radius:99px;padding:8px 14px;cursor:pointer}
+.chip.on,.dyn button.on{background:var(--cobalt2);border-color:var(--cobalt2);color:#fff}
+.chip:focus-visible,.dyn button:focus-visible,.inv:focus-visible,.pin:focus-visible{outline:3px solid var(--jade);outline-offset:2px}
+.info h3{font-size:34px;color:var(--cobalt2)}.info .zh{float:right;font:400 54px 'Ma Shan Zheng',serif;color:var(--seal);line-height:1;margin-left:12px}
+.info p{margin:8px 0}.tag{color:var(--jade);font-weight:700}
+.dyn{display:flex;gap:8px;overflow-x:auto;padding-bottom:10px}.dyn button{white-space:nowrap}
+.bar{height:6px;background:var(--line);border-radius:9px;margin:6px 0 16px;overflow:hidden}.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--jade),var(--cobalt2));transition:width .4s}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}
+.inv{text-align:left;font:inherit;color:inherit;cursor:pointer;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;transition:transform .2s,border-color .2s}
+.inv:hover{transform:translateY(-4px);border-color:var(--cobalt2)}
+.inv .z{font:400 52px 'Ma Shan Zheng',serif;color:var(--seal);line-height:1}.inv h3{font-size:26px;margin:6px 0}
+.inv .more{display:none;color:var(--mute);font-size:15px;margin:8px 0 0}.inv.open .more{display:block}
+.words .w{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid var(--line)}
+.words .w:last-child{border:0}.words .c{font:400 40px 'Ma Shan Zheng',serif;min-width:92px;color:var(--cobalt2)}
+.words small{color:var(--mute)}
+.quiz button{display:block;width:100%;text-align:left;margin:8px 0;font:600 16px Figtree,sans-serif;padding:12px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.quiz button.ok{background:var(--jade);color:#fff;border-color:var(--jade)}.quiz button.no{border-color:var(--seal);color:var(--seal)}
+.next{background:var(--cobalt2)!important;color:#fff!important;text-align:center!important;border:0!important}
+footer{background:var(--cobalt);color:#e9dcc0;padding:34px 0;font-size:14px}
+.pin text,.chip,.dyn button,.quiz button{font-family:'EB Garamond',Georgia,serif;font-size:16px}
+.pin text{font-size:14px}
+.card,.mapbox,.inv{border-radius:4px;box-shadow:inset 0 0 0 4px var(--card),inset 0 0 0 5px var(--line)}
+.chip,.dyn button,.quiz button,.btns a{border-radius:4px}
+.tl{border-left:2px solid var(--line);margin-left:6px}
+.tl div{position:relative;padding:0 0 24px 26px}
+.tl div::before{content:'';position:absolute;left:-8px;top:9px;width:14px;height:14px;border-radius:50%;background:var(--seal);border:2px solid var(--bg)}
+.tl b{display:block;font:700 26px 'Cormorant Garamond',Georgia,serif;color:var(--cobalt2)}
+.tl p{margin:2px 0 0}
+@media (prefers-color-scheme:dark){.chip.on,.dyn button.on{color:#1e160e}.next{color:#1e160e!important}}
+main>section{display:none}main>section.on{display:block}
+body:not([data-p="home"]) .hero{display:none}
+nav a.cur{color:var(--cobalt2);box-shadow:inset 0 -3px 0 var(--cobalt2)}
+main{position:relative;overflow:hidden}
+main::before{position:absolute;z-index:-1;right:8px;top:4px;font:400 min(42vw,260px)/1 'Ma Shan Zheng','Kaiti SC',KaiTi,serif;opacity:.08;pointer-events:none}
+body[data-p="harta"] main::before{content:'地'}body[data-p="dinastite"] main::before{content:'朝'}body[data-p="ngjarjet"] main::before{content:'史'}body[data-p="shpikjet"] main::before{content:'明'}body[data-p="gjuha"] main::before{content:'字'}body[data-p="kuizi"] main::before{content:'问'}
+body[data-p="harta"]{--bg:#d3ddd0;--card:#eef2e6;--ink:#1d2b24;--mute:#4a5f55;--line:#a9bba8;--cobalt:#1f3d36;--cobalt2:#2b6a5c;--jade:#3d7a4a;--land:#f1e8ca}
+body[data-p="dinastite"]{--bg:#2e0f0c;--card:#431813;--ink:#f3e2c2;--mute:#cfae85;--line:#7a3a24;--cobalt:#1a0705;--cobalt2:#e3b24f;--jade:#e3b24f;--seal:#d9473a}
+body[data-p="ngjarjet"]{--bg:#f3ead4;--card:#fbf5e4;--ink:#2b1d10;--mute:#6b5638;--line:#d4c196;--cobalt:#3b2412;--cobalt2:#a3231a;--jade:#5a6b3a}
+body[data-p="shpikjet"]{--bg:#e6edf8;--card:#fff;--ink:#14286b;--mute:#4a5a8a;--line:#b6c5e6;--cobalt:#14286b;--cobalt2:#1f4fc0;--jade:#1f7a6a}
+body[data-p="gjuha"]{--bg:#faf8f1;--card:#fff;--ink:#1b1b1b;--mute:#5b5b5b;--line:#e3c7c3;--cobalt:#1b1b1b;--cobalt2:#b3261e;--jade:#6a6a6a}
+body[data-p="kuizi"]{--bg:#cfe3d6;--card:#eef7f0;--ink:#12382b;--mute:#3e6556;--line:#9cc4ae;--cobalt:#0e3a2c;--cobalt2:#1f7a5a;--jade:#1f7a5a}
+body[data-p] .chip.on,body[data-p] .dyn button.on{color:#fff}
+body[data-p] .next{color:#fff!important}
+body[data-p="harta"] h2,body[data-p="harta"] .lead,body[data-p="kuizi"] h2,body[data-p="kuizi"] .lead{text-align:center;margin-left:auto;margin-right:auto}
+body[data-p="harta"] h2{border-bottom:3px double var(--cobalt2);padding-bottom:8px}
+body[data-p="dinastite"] h2{letter-spacing:2px}
+body[data-p="dinastite"] .card,body[data-p="dinastite"] .dyn button{border-color:var(--cobalt2)}
+body[data-p="dinastite"] .dyn button.on{color:#2a0e0a}
+body[data-p="ngjarjet"] .wrap{max-width:720px}
+body[data-p="ngjarjet"] h2{font-size:clamp(40px,9vw,64px)}
+body[data-p="kuizi"] .wrap{max-width:640px}
+body[data-p="shpikjet"] .grid{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+body[data-p="shpikjet"] .inv{border:0;border-top:6px solid var(--cobalt2)}
+body[data-p="shpikjet"] .inv.open{background:var(--cobalt2);color:#fff}
+body[data-p="shpikjet"] .inv.open .z{color:#fff}
+body[data-p="shpikjet"] .inv.open .more,body[data-p="shpikjet"] .inv.open .tag{color:#e6edf8}
+body[data-p="gjuha"] .words .c{text-align:center;border:2px solid var(--cobalt2);padding:6px 0;background:linear-gradient(var(--line),var(--line)) center/1px 100% no-repeat,linear-gradient(var(--line),var(--line)) center/100% 1px no-repeat}
+.hc{display:block;text-decoration:none;color:inherit;padding:20px;border-radius:4px;background:var(--card);box-shadow:inset 0 0 0 4px var(--card),inset 0 0 0 5px var(--line);border:1px solid var(--line);transition:transform .2s}
+.hc:hover,.hc:focus-visible{transform:translateY(-4px);outline:none}
+.hc .z{font:400 56px/1 'Ma Shan Zheng',serif;color:var(--seal)}
+.hc h3{font-size:28px;margin:6px 0 4px;color:var(--cobalt2)}
+.hc p{margin:0;color:var(--mute);font-size:16px}
+.legend{display:flex;flex-wrap:wrap;gap:10px 24px;margin:14px 2px 0;font-size:16px;color:var(--mute)}
+.legend span{display:flex;align-items:center;gap:8px;white-space:nowrap}.legend svg{width:auto;flex:none}
+#qm{cursor:crosshair;touch-action:manipulation;background:var(--card);border:1px solid var(--line);border-radius:4px;margin:8px 0}
+.hero .wrap{position:relative;z-index:1}
+.hero h1{background:linear-gradient(180deg,#fff6dc 20%,#e3b24f 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 3px 10px rgba(0,0,0,.35))}
+.stats b{color:#e8bd5a}
+.seal{writing-mode:horizontal-tb!important;width:46px;padding:9px 6px!important;text-align:center;line-height:1.08!important;word-break:break-all;letter-spacing:0!important;transform:rotate(-4deg);box-shadow:0 5px 16px rgba(0,0,0,.4)}
+.mtn{position:absolute;left:0;right:0;bottom:-1px;width:100%;height:110px;pointer-events:none}
+.lantern{position:absolute;z-index:0;top:44px;width:44px;height:58px;transform-origin:50% -44px;animation:sway 4s ease-in-out infinite alternate;pointer-events:none}
+.lantern::before{content:'';position:absolute;left:50%;top:-44px;width:2px;height:44px;background:#d9a441;transform:translateX(-50%)}
+.lantern::after{content:'';position:absolute;inset:0;border-radius:50%/45%;background:radial-gradient(circle at 35% 30%,#ee6a52,#a3231a 60%,#6d130d);box-shadow:0 0 30px 8px rgba(255,120,60,.35),inset 0 8px 0 -4px #e3b24f,inset 0 -8px 0 -4px #e3b24f}
+.l1{right:11%}.l2{right:22%;top:24px;width:32px;height:42px;animation-delay:-2s;transform-origin:50% -24px}.l2::before{top:-24px;height:24px}
+@keyframes sway{from{transform:rotate(-6deg)}to{transform:rotate(6deg)}}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes pulse{0%,100%{stroke-width:2;stroke-opacity:1}50%{stroke-width:8;stroke-opacity:.4}}
+main>section.on .wrap>*{animation:rise .6s both}
+main>section.on .wrap>*:nth-child(2){animation-delay:.08s}main>section.on .wrap>*:nth-child(3){animation-delay:.16s}main>section.on .wrap>*:nth-child(4){animation-delay:.24s}main>section.on .wrap>*:nth-child(5){animation-delay:.32s}
+.grid>*{animation:rise .6s both}.grid>*:nth-child(2){animation-delay:.1s}.grid>*:nth-child(3){animation-delay:.2s}.grid>*:nth-child(4){animation-delay:.3s}.grid>*:nth-child(5){animation-delay:.4s}.grid>*:nth-child(6){animation-delay:.5s}
+h2::after{content:'';display:block;width:84px;height:3px;margin-top:10px;background:linear-gradient(90deg,var(--seal),var(--cobalt2),transparent);border-radius:2px}
+body[data-p="harta"] h2::after,body[data-p="kuizi"] h2::after{margin-left:auto;margin-right:auto;background:linear-gradient(90deg,transparent,var(--cobalt2),transparent)}
+.pin circle{filter:drop-shadow(0 0 4px rgba(163,35,26,.6))}.pin.on circle{animation:pulse 1.6s infinite}
+.hc:hover,.hc:focus-visible{box-shadow:0 14px 30px rgba(40,20,8,.22),inset 0 0 0 4px var(--card),inset 0 0 0 5px var(--line)}
+.inv:hover{box-shadow:0 12px 26px rgba(40,20,8,.18),inset 0 0 0 4px var(--card),inset 0 0 0 5px var(--line)}
+.fact{margin-bottom:22px;display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;border-left:6px solid var(--seal)}
+.fact p{flex:1 1 260px;margin:0;font-size:19px}
+footer{text-align:center}footer .wrap::before{content:'❖';display:block;font-size:24px;color:#e3b24f;margin-bottom:6px}
+.ban{display:block;width:100%;height:96px;color:var(--cobalt2);margin:-24px 0 18px}
+.panda{width:64px;height:64px;flex:none}
+body[data-p="ngjarjet"] .ban{color:#5f7a3a}
+body[data-p="gjuha"] .ban{color:#b3261e}
+body[data-p="kuizi"] .ban{color:#2c8a63}
+.ph{margin:22px 0 0}
+.ph img{display:block;width:100%;max-height:420px;object-fit:cover;border:6px solid var(--card);outline:1px solid var(--line);box-shadow:0 8px 22px rgba(40,20,8,.25)}
+.ph.c img{object-fit:contain;background:#1b1b1b}
+.ph figcaption{font-size:15px;line-height:1.4;color:var(--mute);padding:8px 2px;font-style:italic}
+body[data-p="loje"]{--bg:#141a3a;--card:#1f2750;--ink:#f6e7c1;--mute:#b8bfe0;--line:#3a4580;--cobalt:#0d1230;--cobalt2:#f2b84b;--jade:#7fd1b9;--seal:#e0523f}
+body[data-p="loje"] main::before{content:'玩'}
+body[data-p="loje"] .chip.on{color:#141a3a}
+body[data-p="loje"] .next{color:#141a3a!important}
+.gm{min-height:260px}
+.gm .next{display:block;width:100%;padding:12px;font:700 18px 'EB Garamond',Georgia,serif;border:0;border-radius:6px;background:var(--cobalt2);cursor:pointer;margin-top:14px}
+.mg{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0}
+.mc{aspect-ratio:1;border:2px solid var(--cobalt2);border-radius:8px;background:linear-gradient(135deg,var(--cobalt),#2b3570);color:var(--ink);cursor:pointer;font:700 18px 'EB Garamond',Georgia,serif;padding:2px}
+.mc .mf{font:400 34px 'Ma Shan Zheng',serif;color:var(--cobalt2)}
+.mc .mb{display:none}.mc.up .mf,.mc.ok .mf{display:none}.mc.up .mb,.mc.ok .mb{display:block}
+.mc.up,.mc.ok{background:var(--card)}.mc.ok{border-color:var(--jade);box-shadow:0 0 14px var(--jade)}
+.mb.zh{font:400 40px 'Ma Shan Zheng',serif}
+.og{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:14px 0}
+.od{padding:14px 8px;border:2px solid var(--cobalt2);border-radius:8px;background:var(--card);color:var(--ink);font:700 20px 'EB Garamond',Georgia,serif;cursor:pointer;text-align:center}
+.od small{display:block;font-size:13px;color:var(--cobalt2)}.od em{display:block;font:400 14px 'EB Garamond',Georgia,serif;color:var(--mute)}
+.od.ok{border-color:var(--jade)}.od.bad{animation:shake .4s}
+@keyframes shake{25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+.lg{position:relative;height:340px;overflow:hidden;border-radius:8px;border:1px solid var(--line);background:linear-gradient(#0b1030,#2a1a46 70%,#4a2250)}
+.ln{position:absolute;bottom:-70px;width:44px;height:56px;border:0;padding:0;border-radius:50%/45%;cursor:pointer;background:radial-gradient(circle at 35% 30%,#ee6a52,#a3231a 65%,#6d130d);box-shadow:0 0 18px 4px rgba(255,120,60,.45);animation:ascend linear forwards}
+.ln.gold{background:radial-gradient(circle at 35% 30%,#ffe9a0,#e3b24f 65%,#a8741a);box-shadow:0 0 22px 7px rgba(255,210,90,.6)}
+@keyframes ascend{to{transform:translateY(-430px)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+body[data-p="loje"]{--bg:#141a3a;--card:#1f2750;--ink:#f6e7c1;--mute:#b8bfe0;--line:#3a4580;--cobalt:#0d1230;--cobalt2:#f2b84b;--jade:#7fd1b9;--seal:#e0523f}
+body[data-p="loje"] main::before{content:'玩'}
+body[data-p="loje"] .chip.on{color:#141a3a}
+body[data-p="loje"] .next{color:#141a3a!important}
+.gm{min-height:260px}
+.gm .next{display:block;width:100%;padding:12px;font:700 18px 'EB Garamond',Georgia,serif;border:0;border-radius:6px;background:var(--cobalt2);cursor:pointer;margin-top:14px}
+.mg{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0}
+.mc{aspect-ratio:1;border:2px solid var(--cobalt2);border-radius:8px;background:linear-gradient(135deg,var(--cobalt),#2b3570);color:var(--ink);cursor:pointer;font:700 18px 'EB Garamond',Georgia,serif;padding:2px}
+.mc .mf{font:400 34px 'Ma Shan Zheng',serif;color:var(--cobalt2)}
+.mc .mb{display:none}.mc.up .mf,.mc.ok .mf{display:none}.mc.up .mb,.mc.ok .mb{display:block}
+.mc.up,.mc.ok{background:var(--card)}.mc.ok{border-color:var(--jade);box-shadow:0 0 14px var(--jade)}
+.mb.zh{font:400 40px 'Ma Shan Zheng',serif}
+.og{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:14px 0}
+.od{padding:14px 8px;border:2px solid var(--cobalt2);border-radius:8px;background:var(--card);color:var(--ink);font:700 20px 'EB Garamond',Georgia,serif;cursor:pointer;text-align:center}
+.od small{display:block;font-size:13px;color:var(--cobalt2)}.od em{display:block;font:400 14px 'EB Garamond',Georgia,serif;color:var(--mute)}
+.od.ok{border-color:var(--jade)}.od.bad{animation:shake .4s}
+@keyframes shake{25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+.lg{position:relative;height:340px;overflow:hidden;border-radius:8px;border:1px solid var(--line);background:linear-gradient(#0b1030,#2a1a46 70%,#4a2250)}
+.ln{position:absolute;bottom:-70px;width:44px;height:56px;border:0;padding:0;border-radius:50%/45%;cursor:pointer;background:radial-gradient(circle at 35% 30%,#ee6a52,#a3231a 65%,#6d130d);box-shadow:0 0 18px 4px rgba(255,120,60,.45);animation:ascend linear forwards}
+.ln.gold{background:radial-gradient(circle at 35% 30%,#ffe9a0,#e3b24f 65%,#a8741a);box-shadow:0 0 22px 7px rgba(255,210,90,.6)}
+@keyframes ascend{to{transform:translateY(-430px)}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="big" aria-hidden="true">中</div>
+  <div class="lantern l1" aria-hidden="true"></div><div class="lantern l2" aria-hidden="true"></div>
+  <div class="wrap">
+    <span class="seal" aria-hidden="true">中华</span>
+    <h1>Qytetërimi Kinez</h1>
+    <p>Një nga qytetërimet më të vjetra të gjalla në botë. Shkrim, mëndafsh, çaj, letër dhe pesë mijë vjet histori që ende shkruhet sot.</p>
+    <div class="btns"><a href="#harta">Eksploro hartën</a><a class="o" href="#dinastite">Udhëto në kohë</a></div>
+    <div class="stats">
+      <div><b>~5000</b>vjet histori</div>
+      <div><b>9.6 mln</b>km² sipërfaqe</div>
+      <div><b>56</b>grupe etnike zyrtare</div>
+      <div><b>21 196 km</b>gjatësia e Murit të Madh</div>
+    </div>
+  </div>
+<svg class="mtn" viewBox="0 0 1200 140" preserveAspectRatio="none" aria-hidden="true"><path d="M0 90 L90 40 L170 80 L270 20 L380 85 L470 45 L580 95 L690 30 L800 90 L900 50 L1010 85 L1110 35 L1200 80 V140 H0Z" fill="#f4ead2" fill-opacity=".10"/><path d="M0 110 L120 70 L210 105 L330 60 L440 108 L560 75 L670 112 L780 68 L900 108 L1020 72 L1120 105 L1200 85 V140 H0Z" fill="#f4ead2" fill-opacity=".20"/><path d="M0 128 Q150 100 300 124 T600 120 T900 126 T1200 118 V140 H0Z" style="fill:var(--bg)"/></svg>
+</header>
+
+<nav aria-label="Seksionet"><div class="wrap">
+  <a href="#home">Ballina</a><a href="#harta">Harta</a><a href="#dinastite">Dinastitë</a><a href="#ngjarjet">Ngjarjet</a><a href="#shpikjet">Shpikjet</a><a href="#gjuha">Gjuha</a><a href="#kuizi">Kuiz</a><a href="#loje">Lojëra</a>
+</div></nav>
+
+<main>
+<section id="home"><div class="wrap"><h2>Zgjidh një faqe</h2><div class="card fact"><svg class="panda" viewBox="0 0 64 64" aria-hidden="true"><circle cx="14" cy="14" r="9" fill="#222"/><circle cx="50" cy="14" r="9" fill="#222"/><circle cx="32" cy="34" r="25" fill="#fff" stroke="#222" stroke-width="2"/><ellipse cx="22" cy="31" rx="6" ry="8" transform="rotate(25 22 31)" fill="#222"/><ellipse cx="42" cy="31" rx="6" ry="8" transform="rotate(-25 42 31)" fill="#222"/><circle cx="23" cy="31" r="2" fill="#fff"/><circle cx="41" cy="31" r="2" fill="#fff"/><ellipse cx="32" cy="42" rx="4" ry="3" fill="#222"/><path d="M32 45v3M27 49q5 4 10 0" stroke="#222" stroke-width="2" fill="none" stroke-linecap="round"/></svg><span class="tag">E dinit?</span><p id="fact-t"></p><button class="chip" id="fact-b">Fakt tjetër</button></div>
+  <div class="grid" id="home-grid"></div></div></section>
+<section id="harta"><div class="wrap">
+  <svg class="ban" viewBox="0 0 600 96" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><path d="M0 96V66L60 38L110 60L170 26L230 56L300 18L380 54L450 28L520 56L600 34V96Z" fill="currentColor" opacity=".14"/><path d="M-5 84L70 64L130 76L200 52L270 70L340 46L420 70L500 52L605 76" fill="none" stroke="currentColor" stroke-width="6" stroke-linejoin="round"/><path d="M-5 84L70 64L130 76L200 52L270 70L340 46L420 70L500 52L605 76" fill="none" stroke="var(--bg)" stroke-width="1.5" stroke-dasharray="5 6"/><g id="tw" fill="currentColor"><rect x="-13" y="-16" width="26" height="16"/><path d="M-17 -16h34l-17 -12z"/></g><use href="#tw" x="200" y="52"/><use href="#tw" x="340" y="46"/><use href="#tw" x="500" y="52"/><use href="#tw" x="70" y="64"/></svg>
+  <h2>Harta interaktive</h2>
+  <p class="lead">Prek një qytet në hartë (ose zgjidhe nga lista) dhe zbulo çfarë e bën të veçantë.</p>
+  <div class="mapbox"><svg id="map" viewBox="0 0 700 420" role="img" aria-label="Hartë e thjeshtuar e Kinës me qytete kryesore"></svg></div>
+  <div class="legend" aria-label="Legjenda e hartës">
+    <span><svg width="52" height="14" aria-hidden="true"><line class="wall" x1="2" y1="7" x2="50" y2="7"/></svg>Muri i Madh</span>
+    <span><svg width="52" height="14" aria-hidden="true"><line class="silk" x1="2" y1="7" x2="50" y2="7"/></svg>Rruga e Mëndafshit</span>
+    <span><svg width="52" height="14" aria-hidden="true"><line class="river" x1="2" y1="7" x2="50" y2="7"/></svg>Lumenjtë</span>
+    <span><svg width="20" height="14" aria-hidden="true"><circle cx="10" cy="7" r="6" fill="#a3231a" stroke="#fff" stroke-width="2"/></svg>Qytet</span>
+  </div>
+  <div class="chips" id="chips" role="group" aria-label="Zgjidh qytetin"></div>
+  <div class="card info" id="info" aria-live="polite"></div>
+</div></section>
+
+<section id="dinastite"><div class="wrap">
+  <svg class="ban" viewBox="0 0 600 96" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><path d="M0 96V70L70 44L130 66L200 36L280 64L360 30L440 62L520 40L600 66V96Z" fill="currentColor" opacity=".13"/><g transform="translate(300 96) scale(0.88)" fill="currentColor"><rect x="-1.5" y="-104" width="3" height="24"/><circle cy="-104" r="3"/><path d="M-20 -71 Q-5.6000000000000005 -74 0 -87 Q5.6000000000000005 -74 20 -71Z"/><rect x="-7.7" y="-71" width="15.4" height="6"/><path d="M-26 -56 Q-8.0 -59 0 -72 Q8.0 -59 26 -56Z"/><rect x="-11.0" y="-56" width="22.0" height="6"/><path d="M-32 -41 Q-10.4 -44 0 -57 Q10.4 -44 32 -41Z"/><rect x="-14.3" y="-41" width="28.6" height="6"/><path d="M-38 -26 Q-12.8 -29 0 -42 Q12.8 -29 38 -26Z"/><rect x="-17.6" y="-26" width="35.2" height="6"/><path d="M-44 -11 Q-15.200000000000001 -14 0 -27 Q15.200000000000001 -14 44 -11Z"/><rect x="-20.9" y="-11" width="41.8" height="6"/><rect x="-44" y="-6" width="88" height="6"/></g><g transform="translate(190 96) scale(0.58)" fill="currentColor"><rect x="-1.5" y="-104" width="3" height="24"/><circle cy="-104" r="3"/><path d="M-20 -71 Q-5.6000000000000005 -74 0 -87 Q5.6000000000000005 -74 20 -71Z"/><rect x="-7.7" y="-71" width="15.4" height="6"/><path d="M-26 -56 Q-8.0 -59 0 -72 Q8.0 -59 26 -56Z"/><rect x="-11.0" y="-56" width="22.0" height="6"/><path d="M-32 -41 Q-10.4 -44 0 -57 Q10.4 -44 32 -41Z"/><rect x="-14.3" y="-41" width="28.6" height="6"/><path d="M-38 -26 Q-12.8 -29 0 -42 Q12.8 -29 38 -26Z"/><rect x="-17.6" y="-26" width="35.2" height="6"/><rect x="-44" y="-6" width="88" height="6"/></g><g transform="translate(410 96) scale(0.58)" fill="currentColor"><rect x="-1.5" y="-104" width="3" height="24"/><circle cy="-104" r="3"/><path d="M-20 -71 Q-5.6000000000000005 -74 0 -87 Q5.6000000000000005 -74 20 -71Z"/><rect x="-7.7" y="-71" width="15.4" height="6"/><path d="M-26 -56 Q-8.0 -59 0 -72 Q8.0 -59 26 -56Z"/><rect x="-11.0" y="-56" width="22.0" height="6"/><path d="M-32 -41 Q-10.4 -44 0 -57 Q10.4 -44 32 -41Z"/><rect x="-14.3" y="-41" width="28.6" height="6"/><path d="M-38 -26 Q-12.8 -29 0 -42 Q12.8 -29 38 -26Z"/><rect x="-17.6" y="-26" width="35.2" height="6"/><rect x="-44" y="-6" width="88" height="6"/></g><g transform="translate(92 96) scale(0.38)" fill="currentColor"><rect x="-1.5" y="-104" width="3" height="24"/><circle cy="-104" r="3"/><path d="M-20 -71 Q-5.6000000000000005 -74 0 -87 Q5.6000000000000005 -74 20 -71Z"/><rect x="-7.7" y="-71" width="15.4" height="6"/><path d="M-26 -56 Q-8.0 -59 0 -72 Q8.0 -59 26 -56Z"/><rect x="-11.0" y="-56" width="22.0" height="6"/><path d="M-32 -41 Q-10.4 -44 0 -57 Q10.4 -44 32 -41Z"/><rect x="-14.3" y="-41" width="28.6" height="6"/><rect x="-44" y="-6" width="88" height="6"/></g><g transform="translate(508 96) scale(0.38)" fill="currentColor"><rect x="-1.5" y="-104" width="3" height="24"/><circle cy="-104" r="3"/><path d="M-20 -71 Q-5.6000000000000005 -74 0 -87 Q5.6000000000000005 -74 20 -71Z"/><rect x="-7.7" y="-71" width="15.4" height="6"/><path d="M-26 -56 Q-8.0 -59 0 -72 Q8.0 -59 26 -56Z"/><rect x="-11.0" y="-56" width="22.0" height="6"/><path d="M-32 -41 Q-10.4 -44 0 -57 Q10.4 -44 32 -41Z"/><rect x="-14.3" y="-41" width="28.6" height="6"/><rect x="-44" y="-6" width="88" height="6"/></g></svg>
+  <h2>Udhëtim nëpër dinastitë</h2>
+  <p class="lead">Zgjidh një periudhë dhe shiko si ndryshoi Kina nga mbretëritë e lashta te shteti modern.</p>
+  <div class="dyn" id="dyn" role="group" aria-label="Periudhat historike"></div>
+  <div class="bar"><i id="prog"></i></div>
+  <div class="card info" id="dinfo" aria-live="polite"></div>
+</div></section>
+
+<section id="ngjarjet"><div class="wrap">
+  <svg class="ban" viewBox="0 0 600 96" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><rect x="28" y="0" width="7" height="96" rx="3" fill="currentColor" opacity="0.5"/><rect x="27" y="16" width="9" height="2.5" fill="currentColor"/><rect x="27" y="42" width="9" height="2.5" fill="currentColor"/><rect x="27" y="68" width="9" height="2.5" fill="currentColor"/><rect x="27" y="94" width="9" height="2.5" fill="currentColor"/><path d="M31.5 22 q24 -8 40 6 q-22 8 -40 -6z" fill="currentColor" opacity=".7"/><path d="M31.5 48 q-24 -8 -40 6 q22 8 40 -6z" fill="currentColor" opacity=".7"/><path d="M31.5 74 q24 -8 40 6 q-22 8 -40 -6z" fill="currentColor" opacity=".7"/><rect x="80" y="0" width="7" height="96" rx="3" fill="currentColor" opacity="0.6"/><rect x="79" y="16" width="9" height="2.5" fill="currentColor"/><rect x="79" y="42" width="9" height="2.5" fill="currentColor"/><rect x="79" y="68" width="9" height="2.5" fill="currentColor"/><rect x="79" y="94" width="9" height="2.5" fill="currentColor"/><path d="M83.5 22 q-24 -8 -40 6 q22 8 40 -6z" fill="currentColor" opacity=".7"/><path d="M83.5 48 q24 -8 40 6 q-22 8 -40 -6z" fill="currentColor" opacity=".7"/><path d="M83.5 74 q-24 -8 -40 6 q22 8 40 -6z" fill="currentColor" opacity=".7"/><rect x="132" y="0" width="7" height="96" rx="3" fill="currentColor" opacity="0.7"/><rect x="131" y="16" width="9" height="2.5" fill="currentColor"/><rect x="131" y="42" width="9" height="2.5" fill="currentColor"/><rect x="131" y="68" width="9" height="2.5" fill="currentColor"/><rect x="131" y="94" width="9" height="2.5" fill="currentColor"/><path d="M135.5 22 q24 -8 40 6 q-22 8 -40 -6z" fill="currentColor" opacity=".7"/><path d="M135.5 48 q-24 -8 -40 6 q22 8 40 -6z" fill="currentColor" opacity=".7"/><path d="M135.5 74 q24 -8 40 6 q-22 8 -40 -6z" fill="currentColor" opacity=".7"/><rect x="184" y="0" width="7" height="96" rx="3" fill="currentColor" opacity="0.5"/><rect x="183" y="16" width="9" height="2.5" fill="currentColor"/><rect x="183" y="42" width="9" height="2.5" fill="currentColor"/><rect x="183" y="68" width="9" height="2.5" fill="currentColor"/><rect x="183" y="94" width="9" height="2.5" fill="currentColor"/><path d="M187.5 22 q-24 -8 -40 6 q22 8 40 -6z" fill="currentColor" opacity=".7"/><path d="M187.5 48 q24 -8 40 6 q-22 8 -40 -6z" fill="currentColor" opacity=".7"/><path d="M187.5 74 q-24 -8 -40 6 q22 8 40 -6z" fill="currentColor" opacity=".7"/><rect x="236" y="0" width="7" height="96" rx="3" fill="currentColor" opacity="0.6"/><rect x="235" y="16" width="9" height="2.5" fill="currentColor"/><rect x="235" y="42" width="9" height="2.5" fill="currentColor"/><rect x="235" y="68" width="9" height="2.5" fill="currentColor"/><rect x="235" y="94" width="9" height="2.5" fill="currentColor"/><path d="M239.5 22 q24 -8 40 6 q-22 8 -40 -6z" fill="currentColor" opacity=".7"/><path d="M239.5 48 q-24 -8 -40 6 q22 8 40 -6z" fill="currentColor" opacity=".7"/><path d="M239.5 74 q24 -8 40 6 q-22 8 -40 -6z" fill="currentColor" opacity=".7"/><rect x="288" y="0" width="7" height="96" rx="3" fill="currentColor" opacity="0.7"/><rect x="287" y="16" width="9" height="2.5" fill="currentColor"/><rect x="287" y="42" width="9" height="2.5" fill="currentColor"/><rect x="287" y="68" width="9" height="2.5" fill="currentColor"/><rect x="287" y="94" width="9" height="2.5" fill="currentColor"/><path d="M291.5 22 q-24 -8 -40 6 q22 8 40 -6z" fill="currentColor" opacity=".7"/><path d="M291.5 48 q24 -8 40 6 q-22 8 -40 -6z" fill="currentColor" opacity=".7"/><path d="M291.5 74 q-24 -8 -40 6 q22 8 40 -6z" fill="currentColor" opacity=".7"/><rect x="340" y="0" width="7" height="96" rx="3" fill="currentColor" opacity="0.5"/><rect x="339" y="16" width="9" height="2.5" fill="currentColor"/><rect x="339" y="42" width="9" height="2.5" fill="currentColor"/><rect x="339" y="68" width="9" height="2.5" fill="currentColor"/><rect x="339" y="94" width="9" height="2.5" fill="currentColor"/><path d="M343.5 22 q24 -8 40 6 q-22 8 -40 -6z" fill="currentColor" opacity=".7"/><path d="M343.5 48 q-24 -8 -40 6 q22 8 40 -6z" fill="currentColor" opacity=".7"/><path d="M343.5 74 q24 -8 40 6 q-22 8 -40 -6z" fill="currentColor" opacity=".7"/><rect x="392" y="0" width="7" height="96" rx="3" fill="currentColor" opacity="0.6"/><rect x="391" y="16" width="9" height="2.5" fill="currentColor"/><rect x="391" y="42" width="9" height="2.5" fill="currentColor"/><rect x="391" y="68" width="9" height="2.5" fill="currentColor"/><rect x="391" y="94" width="9" height="2.5" fill="currentColor"/><path d="M395.5 22 q-24 -8 -40 6 q22 8 40 -6z" fill="currentColor" opacity=".7"/><path d="M395.5 48 q24 -8 40 6 q-22 8 -40 -6z" fill="currentColor" opacity=".7"/><path d="M395.5 74 q-24 -8 -40 6 q22 8 40 -6z" fill="currentColor" opacity=".7"/><rect x="444" y="0" width="7" height="96" rx="3" fill="currentColor" opacity="0.7"/><rect x="443" y="16" width="9" height="2.5" fill="currentColor"/><rect x="443" y="42" width="9" height="2.5" fill="currentColor"/><rect x="443" y="68" width="9" height="2.5" fill="currentColor"/><rect x="443" y="94" width="9" height="2.5" fill="currentColor"/><path d="M447.5 22 q24 -8 40 6 q-22 8 -40 -6z" fill="currentColor" opacity=".7"/><path d="M447.5 48 q-24 -8 -40 6 q22 8 40 -6z" fill="currentColor" opacity=".7"/><path d="M447.5 74 q24 -8 40 6 q-22 8 -40 -6z" fill="currentColor" opacity=".7"/><rect x="496" y="0" width="7" height="96" rx="3" fill="currentColor" opacity="0.5"/><rect x="495" y="16" width="9" height="2.5" fill="currentColor"/><rect x="495" y="42" width="9" height="2.5" fill="currentColor"/><rect x="495" y="68" width="9" height="2.5" fill="currentColor"/><rect x="495" y="94" width="9" height="2.5" fill="currentColor"/><path d="M499.5 22 q-24 -8 -40 6 q22 8 40 -6z" fill="currentColor" opacity=".7"/><path d="M499.5 48 q24 -8 40 6 q-22 8 -40 -6z" fill="currentColor" opacity=".7"/><path d="M499.5 74 q-24 -8 -40 6 q22 8 40 -6z" fill="currentColor" opacity=".7"/><rect x="548" y="0" width="7" height="96" rx="3" fill="currentColor" opacity="0.6"/><rect x="547" y="16" width="9" height="2.5" fill="currentColor"/><rect x="547" y="42" width="9" height="2.5" fill="currentColor"/><rect x="547" y="68" width="9" height="2.5" fill="currentColor"/><rect x="547" y="94" width="9" height="2.5" fill="currentColor"/><path d="M551.5 22 q24 -8 40 6 q-22 8 -40 -6z" fill="currentColor" opacity=".7"/><path d="M551.5 48 q-24 -8 -40 6 q22 8 40 -6z" fill="currentColor" opacity=".7"/><path d="M551.5 74 q24 -8 40 6 q-22 8 -40 -6z" fill="currentColor" opacity=".7"/></svg>
+  <h2>Ngjarjet që ndryshuan historinë</h2>
+  <p class="lead">Dhjetë data që vlen t'i mbash mend për lëndën e historisë, nga Konfuci deri te Kina e sotme.</p>
+  <div class="card"><div class="tl" id="evs"></div></div>
+</div></section>
+
+<section id="shpikjet"><div class="wrap">
+  <svg class="ban" viewBox="0 0 600 96" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><defs><pattern id="cl" width="64" height="48" patternUnits="userSpaceOnUse"><path d="M6 36c0-14 14-20 22-10c8-14 26-6 22 10c-8-4-12 4-6 8" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><path d="M38 14c0-6 6-8 9-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></pattern></defs><rect width="600" height="96" fill="url(#cl)" opacity=".75"/><rect y="0" width="600" height="6" fill="currentColor"/><rect y="90" width="600" height="6" fill="currentColor"/></svg>
+  <h2>Katër shpikjet e mëdha</h2>
+  <p class="lead">Katër shpikje kineze ndryshuan rrjedhën e historisë botërore. Kliko një kartë për detaje.</p>
+  <div class="grid" id="inv"></div>
+  <figure class="ph c"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Diamond_sutra.jpg?width=900" loading="lazy" alt="Ballina e Sutrës së Diamantit, 868" onerror="this.closest(&quot;figure&quot;).style.display=&quot;none&quot;"><figcaption>Sutra e Diamantit (868), libri më i vjetër i shtypur me datë të sigurt, e ruajtur në Bibliotekën Britanike. Wikimedia Commons, domen publik.</figcaption></figure>
+</div></section>
+
+<section id="gjuha"><div class="wrap">
+  <svg class="ban" viewBox="0 0 600 96" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><path d="M300 14a34 34 0 1 1 -26 12" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round"/><g font-family="'Ma Shan Zheng',KaiTi,serif" text-anchor="middle" fill="var(--ink)"><text x="300" y="62" font-size="42">字</text><text x="170" y="62" font-size="34" opacity=".6">山</text><text x="430" y="62" font-size="34" opacity=".6">水</text><text x="70" y="62" font-size="28" opacity=".35">人</text><text x="530" y="62" font-size="28" opacity=".35">爱</text></g><path d="M0 82h200M400 82h200" stroke="currentColor" stroke-width="2" opacity=".5"/></svg>
+  <h2>Mëso pak kinezisht</h2>
+  <p class="lead">Kinezishtja shkruhet me karaktere, jo me shkronja. Çdo karakter është një njësi kuptimi dhe shumë prej tyre kanë lindur nga vizatime të thjeshta.</p>
+  <div class="card words" id="words"></div>
+</div></section>
+
+<section id="kuizi"><div class="wrap">
+  <svg class="ban" viewBox="0 0 600 96" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><path d="M0 84q50-8 100 0t100 0t100 0t100 0t100 0t100 0" fill="none" stroke="currentColor" stroke-width="2" opacity=".5"/><ellipse cx="90" cy="84" rx="40" ry="7" fill="currentColor" opacity=".45"/><ellipse cx="510" cy="86" rx="46" ry="8" fill="currentColor" opacity=".45"/><ellipse cx="380" cy="88" rx="30" ry="6" fill="currentColor" opacity=".4"/><g transform="translate(300 80) scale(1.05)"><path d="M0 0V16" stroke="currentColor" stroke-width="3"/><ellipse cx="0" cy="-22" rx="9" ry="24" transform="rotate(-64)" fill="#ec9fb5" stroke="#b94a6b" stroke-width="1.2"/><ellipse cx="0" cy="-22" rx="9" ry="24" transform="rotate(-32)" fill="#ec9fb5" stroke="#b94a6b" stroke-width="1.2"/><ellipse cx="0" cy="-22" rx="9" ry="24" transform="rotate(32)" fill="#ec9fb5" stroke="#b94a6b" stroke-width="1.2"/><ellipse cx="0" cy="-22" rx="9" ry="24" transform="rotate(64)" fill="#ec9fb5" stroke="#b94a6b" stroke-width="1.2"/><ellipse cx="0" cy="-22" rx="9" ry="24" transform="rotate(0)" fill="#ec9fb5" stroke="#b94a6b" stroke-width="1.2"/><circle cy="-8" r="5" fill="#e3b24f"/></g><g transform="translate(215 80) scale(0.7)"><path d="M0 0V16" stroke="currentColor" stroke-width="3"/><ellipse cx="0" cy="-22" rx="9" ry="24" transform="rotate(-64)" fill="#ec9fb5" stroke="#b94a6b" stroke-width="1.2"/><ellipse cx="0" cy="-22" rx="9" ry="24" transform="rotate(-32)" fill="#ec9fb5" stroke="#b94a6b" stroke-width="1.2"/><ellipse cx="0" cy="-22" rx="9" ry="24" transform="rotate(32)" fill="#ec9fb5" stroke="#b94a6b" stroke-width="1.2"/><ellipse cx="0" cy="-22" rx="9" ry="24" transform="rotate(64)" fill="#ec9fb5" stroke="#b94a6b" stroke-width="1.2"/><ellipse cx="0" cy="-22" rx="9" ry="24" transform="rotate(0)" fill="#ec9fb5" stroke="#b94a6b" stroke-width="1.2"/><circle cy="-8" r="5" fill="#e3b24f"/></g><g transform="translate(395 80) scale(0.62)"><path d="M0 0V16" stroke="currentColor" stroke-width="3"/><ellipse cx="0" cy="-22" rx="9" ry="24" transform="rotate(-64)" fill="#ec9fb5" stroke="#b94a6b" stroke-width="1.2"/><ellipse cx="0" cy="-22" rx="9" ry="24" transform="rotate(-32)" fill="#ec9fb5" stroke="#b94a6b" stroke-width="1.2"/><ellipse cx="0" cy="-22" rx="9" ry="24" transform="rotate(32)" fill="#ec9fb5" stroke="#b94a6b" stroke-width="1.2"/><ellipse cx="0" cy="-22" rx="9" ry="24" transform="rotate(64)" fill="#ec9fb5" stroke="#b94a6b" stroke-width="1.2"/><ellipse cx="0" cy="-22" rx="9" ry="24" transform="rotate(0)" fill="#ec9fb5" stroke="#b94a6b" stroke-width="1.2"/><circle cy="-8" r="5" fill="#e3b24f"/></g></svg>
+  <h2>Sa e njeh Kinën?</h2>
+  <p class="lead">Zgjidh një kuiz: tri me pyetje dhe një me hartën.</p>
+  <div class="chips" id="qmenu" role="group" aria-label="Zgjidh kuizin"></div>
+  <div class="card quiz" id="quiz" aria-live="polite"></div>
+</div></section>
+<section id="loje"><div class="wrap">
+  <svg class="ban" viewBox="0 0 600 96" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><rect width="600" height="96" fill="#141a3a" opacity=".0"/><g transform="translate(40 58) scale(0.8)"><line y1="-100" y2="-18" stroke="#d9a441" stroke-width="2"/><rect x="-7" y="-20" width="14" height="5" fill="#d9a441"/><ellipse ry="21" rx="16" fill="#a3231a" stroke="#ee6a52" stroke-width="2"/><path d="M-9 -16Q-17 0 -9 16M9 -16Q17 0 9 16" stroke="#d9a441" stroke-width="1.2" fill="none"/><rect x="-7" y="19" width="14" height="4" fill="#d9a441"/><path d="M0 23v14" stroke="#d9a441" stroke-width="2"/></g><g transform="translate(120 40) scale(1)"><line y1="-100" y2="-18" stroke="#d9a441" stroke-width="2"/><rect x="-7" y="-20" width="14" height="5" fill="#d9a441"/><ellipse ry="21" rx="16" fill="#a3231a" stroke="#ee6a52" stroke-width="2"/><path d="M-9 -16Q-17 0 -9 16M9 -16Q17 0 9 16" stroke="#d9a441" stroke-width="1.2" fill="none"/><rect x="-7" y="19" width="14" height="4" fill="#d9a441"/><path d="M0 23v14" stroke="#d9a441" stroke-width="2"/></g><g transform="translate(200 62) scale(0.75)"><line y1="-100" y2="-18" stroke="#d9a441" stroke-width="2"/><rect x="-7" y="-20" width="14" height="5" fill="#d9a441"/><ellipse ry="21" rx="16" fill="#d9a441" stroke="#ffe9a0" stroke-width="2"/><path d="M-9 -16Q-17 0 -9 16M9 -16Q17 0 9 16" stroke="#d9a441" stroke-width="1.2" fill="none"/><rect x="-7" y="19" width="14" height="4" fill="#d9a441"/><path d="M0 23v14" stroke="#d9a441" stroke-width="2"/></g><g transform="translate(290 44) scale(1.1)"><line y1="-100" y2="-18" stroke="#d9a441" stroke-width="2"/><rect x="-7" y="-20" width="14" height="5" fill="#d9a441"/><ellipse ry="21" rx="16" fill="#a3231a" stroke="#ee6a52" stroke-width="2"/><path d="M-9 -16Q-17 0 -9 16M9 -16Q17 0 9 16" stroke="#d9a441" stroke-width="1.2" fill="none"/><rect x="-7" y="19" width="14" height="4" fill="#d9a441"/><path d="M0 23v14" stroke="#d9a441" stroke-width="2"/></g><g transform="translate(380 64) scale(0.8)"><line y1="-100" y2="-18" stroke="#d9a441" stroke-width="2"/><rect x="-7" y="-20" width="14" height="5" fill="#d9a441"/><ellipse ry="21" rx="16" fill="#a3231a" stroke="#ee6a52" stroke-width="2"/><path d="M-9 -16Q-17 0 -9 16M9 -16Q17 0 9 16" stroke="#d9a441" stroke-width="1.2" fill="none"/><rect x="-7" y="19" width="14" height="4" fill="#d9a441"/><path d="M0 23v14" stroke="#d9a441" stroke-width="2"/></g><g transform="translate(460 42) scale(1)"><line y1="-100" y2="-18" stroke="#d9a441" stroke-width="2"/><rect x="-7" y="-20" width="14" height="5" fill="#d9a441"/><ellipse ry="21" rx="16" fill="#d9a441" stroke="#ffe9a0" stroke-width="2"/><path d="M-9 -16Q-17 0 -9 16M9 -16Q17 0 9 16" stroke="#d9a441" stroke-width="1.2" fill="none"/><rect x="-7" y="19" width="14" height="4" fill="#d9a441"/><path d="M0 23v14" stroke="#d9a441" stroke-width="2"/></g><g transform="translate(545 60) scale(0.85)"><line y1="-100" y2="-18" stroke="#d9a441" stroke-width="2"/><rect x="-7" y="-20" width="14" height="5" fill="#d9a441"/><ellipse ry="21" rx="16" fill="#a3231a" stroke="#ee6a52" stroke-width="2"/><path d="M-9 -16Q-17 0 -9 16M9 -16Q17 0 9 16" stroke="#d9a441" stroke-width="1.2" fill="none"/><rect x="-7" y="19" width="14" height="4" fill="#d9a441"/><path d="M0 23v14" stroke="#d9a441" stroke-width="2"/></g></svg>
+  <h2>Lojëra</h2>
+  <p class="lead">Mëso duke luajtur: tri lojëra të shkurtra për karakteret, dinastitë dhe festën e fenerëve.</p>
+  <div class="chips" id="gmenu" role="group" aria-label="Zgjidh lojën"></div>
+  <div class="card gm" id="game" aria-live="polite"></div>
+</div></section>
+</main>
+
+<footer><div class="wrap">Faqe edukative për lëndën e historisë. Harta është një skicë e thjeshtuar dhe jo një hartë zyrtare; datat e hershme janë të përafërta.</div></footer>
+
+<script>
+const $=s=>document.querySelector(s);
+/* ---------- HARTA ---------- */
+const P=(lo,la)=>[(lo-73)*11,(54.5-la)*11];
+const outline=[[73.5,39.5],[75,37],[78,35.5],[79,32.5],[81,30],[85,28],[88,27.8],[92,28],[96,28.5],[98,27.5],[98.5,24],[101,21.5],[103,22.5],[106,22.8],[108,21.5],[110.5,21],[113,22],[117,23.5],[119.5,25.5],[121.5,28.5],[122,30.8],[120.8,32.5],[119.5,34.5],[121,37],[122.5,37.3],[120,38.5],[118,39],[121.5,40.5],[124,40],[125,40.5],[128,42],[130.5,42.6],[131,45],[133,48],[135,48.4],[132,47.7],[130,48.5],[127.5,50],[125,53.4],[121,53],[119,52.5],[117,49.8],[119.5,47],[116,45.5],[112,43.5],[111,42],[106,41.5],[102,42.5],[97,42.8],[95,44],[91,45.5],[90,47.5],[87.5,49],[85,47],[83,47],[80.5,45],[80,42.5],[77,41],[74,40]];
+const pts=a=>a.map(c=>P(...c).join(',')).join(' ');
+const yangtze=[[91,33],[96,32],[100,29],[103,28],[106,29.5],[110,30.7],[114,30.5],[117,30.8],[119.5,32],[121.8,31.5]];
+const huang=[[96,35],[100,35.5],[103,36.2],[106,38.5],[109,40.8],[111,39],[110.5,35.5],[114,34.8],[117,37],[119,37.7]];
+const OUT=[[73.6,39.5],[74.9,37.3],[75.9,36.9],[76.0,35.8],[77.8,35.5],[78.9,34.3],[79.3,32.5],[78.8,31.0],[80.2,30.2],[81.5,30.3],[83.2,29.6],[84.2,28.8],[85.8,28.3],[86.9,28.0],[88.1,27.9],[88.8,28.1],[89.5,28.2],[91.6,27.8],[92.5,28.1],[93.5,28.6],[95.2,29.2],[96.1,28.3],[97.2,28.2],[98.2,27.5],[98.7,26.2],[97.8,25.2],[98.7,24.2],[99.5,22.9],[101.1,21.8],[101.8,21.2],[102.9,22.5],[104.0,22.8],[105.3,23.3],[106.7,22.9],[108.0,21.6],[109.5,21.6],[109.9,21.4],[110.4,20.3],[110.5,21.1],[111.5,21.5],[113.0,22.1],[114.0,22.4],[115.5,22.7],[117.0,23.4],[118.2,24.4],[119.5,25.6],[120.2,26.7],[121.2,28.2],[121.9,29.8],[121.0,30.6],[121.9,31.0],[121.9,31.8],[120.9,32.5],[120.4,34.0],[119.3,35.1],[120.4,36.1],[122.5,37.4],[121.2,37.6],[119.0,37.2],[118.9,37.9],[118.0,39.1],[119.5,39.9],[121.0,40.8],[122.3,40.4],[121.7,39.0],[121.0,38.9],[122.0,39.7],[123.5,39.7],[124.4,40.0],[125.5,40.5],[126.5,41.4],[128.0,41.9],[129.5,42.4],[130.6,42.4],[130.6,43.0],[131.3,43.5],[131.0,44.9],[131.9,45.4],[133.1,45.1],[134.7,47.7],[134.2,48.4],[132.5,47.7],[131.0,47.7],[130.7,48.9],[127.5,49.8],[126.0,52.8],[125.0,53.2],[123.5,53.5],[121.5,53.3],[120.0,52.8],[119.2,52.5],[118.3,51.7],[117.3,49.5],[119.7,47.0],[117.4,46.5],[116.0,45.1],[113.6,44.8],[111.9,43.7],[111.0,43.3],[110.0,42.6],[107.0,42.2],[105.0,41.6],[102.0,42.2],[101.8,42.5],[99.5,42.6],[97.2,42.8],[96.4,42.7],[95.3,44.3],[93.5,45.0],[91.0,46.6],[90.7,47.7],[90.1,47.9],[88.8,48.1],[87.8,49.2],[87.3,49.1],[86.8,48.0],[85.5,47.1],[83.0,47.2],[82.3,45.5],[80.3,45.0],[80.0,43.0],[80.2,42.2],[78.4,41.4],[76.8,41.0],[75.7,40.3],[74.9,40.3]];
+const YZ=[[91.2,33.4],[93,33],[96.5,33],[97.5,32],[99,29.5],[100.5,27.2],[102,27.5],[103.5,28.5],[104.8,28.8],[106.5,29.6],[108,30.8],[109.5,31],[111.3,30.7],[112.2,29.8],[113.2,29.4],[114.3,30.6],[115.8,29.9],[117.2,30.5],[118.4,31.3],[119.5,32.2],[120.8,31.8],[121.8,31.4]];
+const HH=[[96,35],[100.7,34.4],[102.5,35.6],[103.8,36.1],[105.5,37.5],[106.8,38.5],[106.5,39.5],[108,40.7],[111,40.5],[111.4,39.5],[110.5,37],[110.4,35.5],[110.3,34.6],[111.5,34.8],[113.5,34.9],[115,35.7],[116.5,36.6],[118.5,37.5],[119.1,37.7]];
+const WL=[[98.2,39.8],[102.5,38.5],[106.5,37.8],[108.5,38.3],[111,39.7],[112.5,40.3],[115.5,40.5],[117.5,40.7],[119.8,40.0]];
+const silk=[[108.9,34.3],[103.8,36.1],[98,39.7],[94.7,40.1],[89,42.9],[84,41.7],[80,41.2],[76,39.5]];
+const wall=[[98,39.8],[102,38.5],[106,38.2],[110,38.5],[113,40.4],[116,40.6],[119,40.4],[122,40.3]];
+const cities=[
+{n:'Pekini',zh:'北京',lo:116.4,la:39.9,ph:'20090529_Great_Wall_8185.jpg',t:'Kryeqyteti',p:'Pekini ka qenë qendra e pushtetit për shekuj me radhë. Këtu ndodhet Qyteti i Ndaluar, pallati i perandorëve Ming dhe Qing me gati 1000 ndërtesa. Afër tij ngrihen pjesët më të vizituara të Murit të Madh.',f:'Pekini është i vetmi qytet që ka organizuar Olimpiadën e Verës dhe atë të Dimrit.'},
+{n:'Xi\'an',zh:'西安',lo:108.9,la:34.3,t:'Ish-kryeqyteti i 13 dinastive',p:'Nga Xi\'an nisej Rruga e Mëndafshit. Pranë tij u gjet Ushtria e Terrakotës: mijëra luftëtarë prej balte të varrosur për të ruajtur perandorin Qin Shi Huang në jetën e përtejme.',f:'Çdo luftëtar prej balte ka fytyrë të ndryshme nga tjetri.'},
+{n:'Shangai',zh:'上海',lo:121.5,la:31.2,t:'Metropoli i së ardhmes',p:'Nga një port peshkimi është bërë qyteti më i madh i vendit dhe qendra financiare e Kinës. Panorama e Pudongut me kullat e saj është simboli i Kinës moderne, ndërsa Bund-i ruan arkitekturën e fillimit të shek. XX.',f:'Treni maglev i Shangait arrin 431 km/orë.'},
+{n:'Chengdu',zh:'成都',lo:104.1,la:30.7,t:'Shtëpia e pandave',p:'Chengdu është i njohur për çajtoret e qeta, kuzhinën e Sichuanit me piper djegës dhe qendrën e kërkimit dhe mbarështimit të pandave gjigante.',f:'Panda gjigante ha deri në 12 kg bambu në ditë.'},
+{n:'Guilin',zh:'桂林',lo:110.3,la:25.3,t:'Peizazhi i pikturave',p:'Kodrat karstike, lumi Li dhe tarracat e orizit kanë frymëzuar poetë dhe piktorë për shekuj. Bregu i lumit shfaqet edhe në kartëmonedhën 20 juanëshe.',f:'Barkat prej bambuje me kormoranë peshkimi janë traditë e vjetër e lumit Li.'},
+{n:'Hangzhou',zh:'杭州',lo:120.2,la:30.3,t:'Qyteti i çajit dhe i poezisë',p:'Liqeni Perëndimor me pagoda, ura dhe kopshte është një ndër vendet më të poetizuara të vendit. Rreth qytetit rritet çaji i gjelbër Longjing, ndër më të çmuarit.',f:'Marco Polo, që e vizitoi në shekullin XIII, e përshkroi si një nga qytetet më të shkëlqyera në botë.'},
+{n:'Lhasa',zh:'拉萨',lo:91.1,la:29.7,t:'Çatia e botës',p:'Në mbi 3600 m lartësi, Lhasa është qendra shpirtërore e budizmit tibetian. Pallati Potala mbi kodër është një nga ndërtesat më ikonike të Azisë.',f:'Ajri këtu ka rreth 35% më pak oksigjen se në nivelin e detit.'},
+{n:'Kashgar',zh:'喀什',lo:76.0,la:39.5,t:'Porta e perëndimit',p:'Qyteti i vjetër i Kashgarit ishte stacion i madh i Rrugës së Mëndafshit. Pazari i së dielës është një nga më të vjetrit dhe më të gjallët në Azinë Qendrore.',f:'Këtu takohen kultura kineze, turke dhe persiane.'},
+{n:'Harbin',zh:'哈尔滨',lo:126.6,la:45.8,t:'Qyteti i akullit',p:'Çdo dimër Harbini ndërton një qytet të plotë me skulptura akulli dhe bore, të ndriçuara natën me ngjyra. Është një nga festivalet dimërore më të mëdha në botë.',f:'Temperaturat në janar mund të zbresin nën −25 °C.'},
+{n:'Guangzhou',zh:'广州',lo:113.3,la:23.1,t:'Kryeqyteti i kuzhinës',p:'Porti jugor ka tregtuar me botën për më shumë se 2000 vjet. Është shtëpia e kuzhinës kantoneze dhe e dim sum, vakti i vogël i çajit me shumë pjata.',f:'Në Kinë thuhet «ha në Guangzhou», sepse kuzhina e qytetit konsiderohet ndër më të mirat.'}
+];
+const COMPASS='<g transform="translate(646 360)" style="color:var(--cobalt2)"><circle r="30" fill="var(--card)" fill-opacity=".75" stroke="currentColor" stroke-width="1.5"/><path d="M0-25L7 0L0 25L-7 0Z" fill="currentColor" opacity=".28"/><path d="M0-25L7 0L-7 0Z" fill="var(--seal)"/><path d="M-25 0L0 5L25 0L0-5Z" fill="currentColor" opacity=".2"/><text y="-33" text-anchor="middle" font-size="14" font-weight="700" fill="currentColor">V</text></g>';
+(function(){
+ const s=$('#map');const [hx,hy]=P(109.7,19.2);
+ let h=`<polygon class="land" points="${pts(OUT)}"/><ellipse class="land" cx="${hx}" cy="${hy}" rx="12" ry="9"/>`;
+ h+=`<polyline class="river" points="${pts(YZ)}"/><polyline class="river" points="${pts(HH)}"/><polyline class="wall" points="${pts(WL)}"/><polyline class="silk" points="${pts(silk)}"/>`;
+ cities.forEach((c,i)=>{const [x,y]=P(c.lo,c.la);const left=['Lhasa','Chengdu','Xi\'an'].includes(c.n);
+  h+=`<g class="pin" tabindex="0" role="button" aria-label="${c.n}" data-i="${i}"><circle cx="${x}" cy="${y}" r="8"/><text x="${x+(left?-14:14)}" y="${y+4}" text-anchor="${left?'end':'start'}">${c.n}</text></g>`});
+ h+=COMPASS;s.innerHTML=h;
+ const chips=$('#chips');chips.innerHTML=cities.map((c,i)=>`<button class="chip" data-i="${i}">${c.n}</button>`).join('');
+ const show=i=>{const c=cities[i];
+  document.querySelectorAll('.pin').forEach(p=>p.classList.toggle('on',p.dataset.i==i));
+  document.querySelectorAll('.chip').forEach(p=>p.classList.toggle('on',p.dataset.i==i));
+  $('#info').innerHTML=`<span class="zh" aria-hidden="true">${c.zh}</span><h3>${c.n}</h3><div class="tag">${c.t}</div><p>${c.p}</p><p><b>E dinit?</b> ${c.f}</p>${c.ph?`<figure class="ph "><img src="https://commons.wikimedia.org/wiki/Special:FilePath/${c.ph}?width=900" loading="lazy" alt="Muri i Madh i Kinës" onerror="this.closest(&quot;figure&quot;).style.display=&quot;none&quot;"><figcaption>Muri i Madh pranë Jinshanling, jo larg Pekinit. Foto: Jakub Hałun, Wikimedia Commons.</figcaption></figure>`:''}`};
+ s.addEventListener('click',e=>{const g=e.target.closest('.pin');if(g)show(+g.dataset.i)});
+ s.addEventListener('keydown',e=>{const g=e.target.closest('.pin');if(g&&(e.key==='Enter'||e.key===' ')){e.preventDefault();show(+g.dataset.i)}});
+ chips.addEventListener('click',e=>{const b=e.target.closest('.chip');if(b)show(+b.dataset.i)});
+ show(0);
+})();
+/* ---------- DINASTITE ---------- */
+const D=[
+['Xia & Shang','Xia ~2070–1600, Shang ~1600–1046 pes','Dy dinastitë e para; Xia njihet nga burime të vona dhe historianët ende diskutojnë për të. Nga Shang kanë mbijetuar shkrimet e para kineze, të gdhendura mbi kocka orakulli dhe guaskat e breshkave. Bronzi arrin majat e artit.'],
+['Zhou','1046–256 pes','Dinastia më e gjatë në histori. Në periudhën e saj të vonë lulëzojnë Konfuci, Laozi dhe «njëqind shkollat e mendimit», themelet e filozofisë kineze.'],
+['Qin','221–206 pes','Qin Shi Huang bashkon vendin për herë të parë, standardizon shkrimin, monedhat dhe masat dhe fillon ndërtimin e Murit të Madh. Fjala «China» besohet se vjen nga emri Qin.'],
+['Han','206 pes–220 pas','Kina hap Rrugën e Mëndafshit drejt Perëndimit. Shpikja e letrës dhe zhvillimi i shkencës e bëjnë këtë një epokë të artë; sot shumica e kinezëve e quajnë veten «Han».'],
+['Tang','618–907','Epoka e artë e poezisë, e tregtisë dhe e kozmopolitizmit. Kryeqyteti Chang\'an (Xi\'an) është një nga qytetet më të mëdha në botë.'],
+['Song','960–1279','Shpërthim teknologjik: shtypshkronja me germa të lëvizshme, busulla në lundrim, baruti dhe monedha e parë prej letre. Piktura e peizazhit arrin majën.'],
+['Yuan','1271–1368','Mongolët e Kubilai Kanit sundojnë Kinën. Marco Polo viziton oborrin e tij dhe Pekini bëhet kryeqytet.'],
+['Ming','1368–1644','Ndërtohet Qyteti i Ndaluar, rindërtohet Muri i Madh dhe porcelani blu-e-bardhë bëhet i famshëm në gjithë botën. Admirali Zheng He lundron deri në Afrikë.'],
+['Qing','1644–1912','Dinastia e fundit perandorake. Territori arrin përmasat e sotme, por shek. XIX sjell luftërat e opiumit dhe dobësimin e shtetit.'],
+['Kina moderne','1912–sot','Nga Republika e vitit 1912 te Republika Popullore e vitit 1949, dhe nga reformat e vitit 1978 deri te ekonomia që sot është një nga më të mëdhatë në botë.']
+];
+(function(){
+ const b=$('#dyn');b.innerHTML=D.map((d,i)=>`<button data-i="${i}">${d[0]}</button>`).join('');
+ const show=i=>{const d=D[i];b.querySelectorAll('button').forEach((x,j)=>x.classList.toggle('on',i===j));
+  $('#prog').style.width=((i+1)/D.length*100)+'%';
+  $('#dinfo').innerHTML=`<h3>${d[0]}</h3><div class="tag">${d[1]}</div><p>${d[2]}</p>`};
+ b.addEventListener('click',e=>{const x=e.target.closest('button');if(x)show(+x.dataset.i)});show(0);
+})();
+/* ---------- NGJARJET ---------- */
+const E=[['551 pes','Lind Konfuci','Mendimtari që vë në qendër të shoqërisë respektin, arsimin dhe detyrat ndaj familjes. Mësimet e tij formuan kulturën kineze për më shumë se dy mijë vjet.'],
+['221 pes','Qin bashkon Kinën','Qin Shi Huang mposht shtetet rivale dhe krijon perandorinë e parë të bashkuar, me shkrim, monedha dhe masa të njësuara.'],
+['rreth 138 pes','Zhang Qian udhëton drejt perëndimit','I dërguar nga perandori Han, eksploron Azinë Qendrore. Udhëtimi i tij hap rrugët që më vonë njihen si Rruga e Mëndafshit.'],
+['105 pas','Letra përmirësohet nga Cai Lun','Sipas traditës kineze, oborrtari Cai Lun përpunon një metodë praktike për prodhimin e letrës nga fibra bimore.'],
+['868','Libri i parë i shtypur me datë','Sutra e Diamantit, gjetur në Dunhuang, është libri më i vjetër i shtypur që ka datë të sigurt.'],
+['1405–1433','Udhëtimet e Zheng He','Admirali Zheng He drejton shtatë ekspedita të mëdha detare drejt Azisë Juglindore, Indisë dhe bregut lindor të Afrikës.'],
+['1644','Qing marrin pushtetin','Mandzhurianët hyjnë në Pekin dhe themelojnë dinastinë e fundit perandorake, që do të sundonte deri në 1912.'],
+['1839–1842','Lufta e Parë e Opiumit','Konflikti me Britaninë e Madhe për tregtinë e opiumit mbaron me Traktatin e Nankingut dhe hap një periudhë të gjatë ndikimi të huaj mbi Kinën.'],
+['1911–1912','Bie perandoria','Revolucioni Xinhai rrëzon dinastinë Qing dhe shpallet Republika e Kinës, me Sun Yat-senin si figurë udhëheqëse.'],
+['1949','Republika Popullore e Kinës','Mao Zedong shpall më 1 tetor 1949 shtetin e ri në Pekin, pas vitesh luftërash civile.']];
+$('#evs').innerHTML=E.map(e=>`<div><b>${e[0]}</b><strong>${e[1]}</strong><p>${e[2]}</p></div>`).join('');
+/* ---------- SHPIKJET ---------- */
+const I=[
+['纸','Letra','Rreth vitit 105 pas Krishtit, oborrtari Cai Lun përpunoi një metodë më praktike për prodhimin e letrës nga fibra bimore. Shkrimi u bë më i lirë dhe dija u përhap.'],
+['火药','Baruti','U zbulua nga alkimistët që kërkonin eliksirin e jetës. Fillimisht përdorej për fishekzjarre dhe ceremoni, më vonë edhe për armë.'],
+['指南针','Busulla','Së pari përdorej për orientimin e ndërtesave dhe vendosjen e shtëpive. Në epokën Song hyri në lundrim dhe e bëri të mundur udhëtimin në det të hapur.'],
+['印刷','Shtypi','Blloqet e drurit për shtyp ekzistonin që në epokën Tang, ndërsa Bi Sheng shpiku germat e lëvizshme rreth vitit 1040, rreth 400 vjet para Gutenbergut.']
+];
+$('#inv').innerHTML=I.map(x=>`<button class="inv" aria-expanded="false"><div class="z" aria-hidden="true">${x[0]}</div><h3>${x[1]}</h3><div class="tag">Kliko për më shumë</div><p class="more">${x[2]}</p></button>`).join('');
+$('#inv').addEventListener('click',e=>{const k=e.target.closest('.inv');if(!k)return;const o=k.classList.toggle('open');k.setAttribute('aria-expanded',o)});
+/* ---------- GJUHA ---------- */
+const W=[['你好','Nǐ hǎo','Përshëndetje'],['谢谢','Xièxie','Faleminderit'],['水','shuǐ','Ujë (vizatim i rrjedhës)'],['山','shān','Mal (tri maja)'],['人','rén','Njeri (dy këmbë që ecin)'],['爱','ài','Dashuri'],['龙','lóng','Dragua, simbol i fuqisë dhe i fatit të mirë']];
+$('#words').innerHTML=W.map(w=>`<div class="w"><div class="c">${w[0]}</div><div><b>${w[1]}</b><br><small>${w[2]}</small></div></div>`).join('');
+/* ---------- KUIZI ---------- */
+const QS={
+dinasti:[[ 'Cila dinasti e bashkoi Kinën për herë të parë në vitin 221 pes?',['Han','Qin','Tang'],1],
+['Cila dinasti ndërtoi Qytetin e Ndaluar në Pekin?',['Ming','Song','Yuan'],0],
+['Kush e themeloi dinastinë Yuan në vitin 1271?',['Qin Shi Huang','Zheng He','Kubilai Kani'],2],
+['Cila ishte dinastia e fundit perandorake e Kinës?',['Ming','Qing','Han'],1],
+['Në cilin vit u shpall Republika Popullore e Kinës?',['1912','1978','1949'],2]],
+shpikje:[['Kush e përmirësoi letrën rreth vitit 105 pas Krishtit, sipas traditës kineze?',['Bi Sheng','Cai Lun','Konfuci'],1],
+['Kush shpiku germat e lëvizshme të shtypit rreth vitit 1040?',['Bi Sheng','Cai Lun','Zheng He'],0],
+['Çfarë është Sutra e Diamantit (868)?',['Një dinasti','Një armë','Libri më i vjetër i shtypur me datë të sigurt'],2],
+['Cili mendimtar lindi në vitin 551 pes?',['Mao Zedong','Konfuci','Sun Yat-sen'],1],
+['Çfarë do të thotë 你好 (Nǐ hǎo)?',['Përshëndetje','Faleminderit','Mirupafshim'],0]],
+gjeo:[['Në cilin qytet gjendet Ushtria e Terrakotës?',['Shangai','Guilin','Xi\'an'],2],
+['Cili qytet njihet për pandat gjigante?',['Chengdu','Harbin','Lhasa'],0],
+['Cili është lumi më i gjatë i Kinës?',['Lumi i Verdhë','Yangtze','Li'],1],
+['Në cilin qytet ndodhet Pallati Potala?',['Kashgar','Hangzhou','Lhasa'],2],
+['Çfarë ishte Rruga e Mëndafshit?',['Një rrjet rrugësh tregtare drejt Perëndimit','Një mur mbrojtës','Një lumë'],0]]};
+let cur='dinasti',qi=0,sc=0;
+const QM=[['dinasti','Dinastitë'],['shpikje','Shpikjet dhe kultura'],['gjeo','Gjeografia'],['harta','Kuiz me hartën']];
+function qmenu(){$('#qmenu').innerHTML=QM.map(m=>`<button class="chip${m[0]===cur?' on':''}" data-k="${m[0]}">${m[1]}</button>`).join('')}
+function start(){const el=$('#quiz');el.dataset.done='x';el.onclick=null;qi=0;sc=0;cur==='harta'?mapQuiz():quiz()}
+$('#qmenu').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;cur=b.dataset.k;qmenu();start()});
+function quiz(){const el=$('#quiz'),Q=QS[cur];
+ if(qi>=Q.length){el.innerHTML=`<h3>Rezultati: ${sc} nga ${Q.length}</h3><p>${sc>=4?'Shkëlqyeshëm!':'Mirë! Rilexo faqet përkatëse dhe provo përsëri.'}</p><button class="next" id="again">Provo përsëri</button>`;$('#again').onclick=start;return}
+ const q=Q[qi];el.innerHTML=`<div class="tag">Pyetja ${qi+1} nga ${Q.length}</div><p><b>${q[0]}</b></p>`+q[1].map((o,i)=>`<button data-i="${i}">${o}</button>`).join('');
+ el.onclick=e=>{const b=e.target.closest('button');if(!b||b.classList.contains('next')||el.dataset.done==qi)return;
+  el.dataset.done=qi;const i=+b.dataset.i;if(i===q[2])sc++;
+  el.querySelectorAll('button').forEach((x,j)=>{if(j===q[2])x.classList.add('ok');else if(j===i)x.classList.add('no')});
+  el.insertAdjacentHTML('beforeend','<button class="next" id="nx">'+(qi===Q.length-1?'Shiko rezultatin':'Pyetja tjetër')+'</button>');
+  $('#nx').onclick=()=>{qi++;el.dataset.done='x';quiz()}};
+}
+function mapQuiz(){const el=$('#quiz');el.onclick=null;
+ const order=cities.slice().sort(()=>Math.random()-.5).slice(0,6);let r=0,score=0;
+ const round=()=>{
+  if(r>=order.length){el.innerHTML=`<h3>Rezultati: ${score} nga ${order.length}</h3><p>${score>=5?'Je shumë i mirë në gjeografi!':'Shiko faqen e hartës dhe provo përsëri.'}</p><button class="next" id="again">Provo përsëri</button>`;$('#again').onclick=mapQuiz;return}
+  const c=order[r],[tx,ty]=P(c.lo,c.la),[hx,hy]=P(109.7,19.2);
+  el.innerHTML=`<div class="tag">Raundi ${r+1} nga ${order.length}</div><p><b>Prek në hartë: ${c.n}</b></p><svg id="qm" viewBox="0 0 700 420" role="img" aria-label="Hartë pa emra"><polygon class="land" points="${pts(OUT)}"/><ellipse class="land" cx="${hx}" cy="${hy}" rx="12" ry="9"/></svg><p id="qf"></p>`;
+  const s=$('#qm');let done=false;
+  s.addEventListener('click',e=>{if(done)return;done=true;
+   const pt=s.createSVGPoint();pt.x=e.clientX;pt.y=e.clientY;const q=pt.matrixTransform(s.getScreenCTM().inverse());
+   const ok=Math.hypot(q.x-tx,q.y-ty)<45;if(ok)score++;
+   s.insertAdjacentHTML('beforeend',`<line x1="${q.x}" y1="${q.y}" x2="${tx}" y2="${ty}" stroke="#555" stroke-width="2" stroke-dasharray="4 4"/><circle cx="${q.x}" cy="${q.y}" r="7" fill="${ok?'#2e7d32':'#c62828'}"/><circle cx="${tx}" cy="${ty}" r="9" fill="#1f7a5a" stroke="#fff" stroke-width="2"/>`);
+   $('#qf').innerHTML=(ok?'<b>Saktë!</b> ':'<b>Jo saktë.</b> ')+`${c.n} është pika e gjelbër.`;
+   el.insertAdjacentHTML('beforeend','<button class="next" id="nx">'+(r===order.length-1?'Shiko rezultatin':'Raundi tjetër')+'</button>');
+   $('#nx').onclick=()=>{r++;round()}});
+ };round()}
+qmenu();start();
+const H=[['harta','地','Harta interaktive','10 qytete, Muri i Madh dhe Rruga e Mëndafshit.','#2b6a5c'],['dinastite','朝','Dinastië','Nga Xia dhe Shang deri te Kina moderne.','#a3231a'],['ngjarjet','史','Ngjarjet','10 data kyçe për lëndën e historisë.','#b8862b'],['shpikjet','明','Shpikjet','Letra, baruti, busulla dhe shtypi.','#1f4fc0'],['gjuha','字','Gjuha','Mëso karakteret dhe fjalët e para.','#1b1b1b'],['kuizi','问','Kuizi','Testo çfarë ke mësuar.','#1f7a5a'],['loje','玩','Lojëra','Memorie, rendit dinastitë dhe kap fenerët.','#d9892b']];
+$('#home-grid').innerHTML=H.map(h=>`<a class="hc" href="#${h[0]}" style="border-top:6px solid ${h[4]}"><div class="z" aria-hidden="true">${h[1]}</div><h3>${h[2]}</h3><p>${h[3]}</p></a>`).join('');
+const FX=['Kina ka 56 grupe etnike të njohura zyrtarisht; shumica e popullsisë, rreth 91%, janë Han.','Edhe pse shtrihet në rreth pesë zona kohore gjeografike, Kina përdor vetëm një orë zyrtare në të gjithë vendin (UTC+8).','Viti i Ri Kinez ndjek kalendarin hënor-diellor, ndaj data e tij ndryshon çdo vit, diku midis 21 janarit dhe 20 shkurtit.','Çaji pihet në Kinë prej mijëra vjetësh, dhe sot Kina është prodhuesi më i madh i çajit në botë.','Kinezishtja shkruhet me karaktere dhe për të lexuar një gazetë mjaftojnë disa mijëra prej tyre.','Pandat gjigante ushqehen kryesisht me bambu dhe jetojnë në male të Sichuanit, Shaanxit dhe Gansut.'];
+let fi=Math.floor(Math.random()*FX.length);
+const fx=()=>{$('#fact-t').textContent=FX[fi]};fx();
+$('#fact-b').onclick=()=>{fi=(fi+1)%FX.length;fx()};
+/* ---------- LOJERA ---------- */
+let gTimers=[];
+function stopG(){gTimers.forEach(t=>{clearInterval(t);clearTimeout(t)});gTimers=[]}
+const GM=[['mem','Memoria me karaktere'],['ord','Rendit dinastitë'],['fen','Kap fenerët']];
+let gcur='mem';
+const shuf=a=>a.map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(x=>x[1]);
+function gmenu(){$('#gmenu').innerHTML=GM.map(m=>`<button class="chip${m[0]===gcur?' on':''}" data-k="${m[0]}">${m[1]}</button>`).join('')}
+function gstart(){stopG();$('#game').onclick=null;({mem:memGame,ord:ordGame,fen:fenGame})[gcur]()}
+$('#gmenu').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;gcur=b.dataset.k;gmenu();gstart()});
+function memGame(){const el=$('#game');
+ const PR=[['山','mal'],['水','ujë'],['人','njeri'],['火','zjarr'],['月','hënë'],['龙','dragua']];
+ const cards=shuf(PR.flatMap((p,i)=>[{i,t:p[0],z:1},{i,t:p[1],z:0}]));
+ let open=[],moves=0,found=0,lock=false;
+ el.innerHTML=`<p>Gjej çiftet: karakteri kinez dhe kuptimi i tij. <b id="mv">Lëvizje: 0</b></p><div class="mg">`+cards.map((c,k)=>`<button class="mc" data-k="${k}" aria-label="Kartë e fshehur"><span class="mf">?</span><span class="mb${c.z?' zh':''}">${c.t}</span></button>`).join('')+`</div><div id="gres"></div>`;
+ el.onclick=e=>{const b=e.target.closest('.mc');if(!b||lock||b.classList.contains('up')||b.classList.contains('ok'))return;
+  b.classList.add('up');open.push(b);
+  if(open.length===2){moves++;$('#mv').textContent='Lëvizje: '+moves;
+   const [x,y]=open;
+   if(cards[x.dataset.k].i===cards[y.dataset.k].i){x.classList.add('ok');y.classList.add('ok');open=[];found++;
+    if(found===PR.length){$('#gres').innerHTML=`<h3>Bravo! E mbarove në ${moves} lëvizje.</h3><button class="next" id="gagain">Luaj përsëri</button>`;$('#gagain').onclick=gstart}}
+   else{lock=true;gTimers.push(setTimeout(()=>{x.classList.remove('up');y.classList.remove('up');open=[];lock=false},900))}}};
+}
+function ordGame(){const el=$('#game');
+ const names=['Zhou','Qin','Han','Tang','Song','Yuan','Ming','Qing'];
+ const date=n=>D.find(d=>d[0]===n)[1];
+ let next=0,err=0;
+ el.innerHTML=`<p>Prek dinastitë sipas rendit kohor, nga më e vjetra te më e reja. <b id="er">Gabime: 0</b></p><div class="og">`+shuf(names).map(n=>`<button class="od" data-n="${n}">${n}</button>`).join('')+`</div><div id="gres"></div>`;
+ el.onclick=e=>{const b=e.target.closest('.od');if(!b||b.disabled)return;
+  if(b.dataset.n===names[next]){b.disabled=true;b.classList.add('ok');b.innerHTML=`<small>${next+1}</small>${b.dataset.n}<em>${date(b.dataset.n)}</em>`;next++;
+   if(next===names.length){$('#gres').innerHTML=`<h3>${err===0?'Perfekt! Pa asnjë gabim.':'Gati! Me '+err+' gabime.'}</h3><button class="next" id="gagain">Luaj përsëri</button>`;$('#gagain').onclick=gstart}}
+  else{err++;$('#er').textContent='Gabime: '+err;b.classList.add('bad');gTimers.push(setTimeout(()=>b.classList.remove('bad'),450))}};
+}
+function fenGame(){const el=$('#game');let score=0,t=25;
+ const rm=matchMedia('(prefers-reduced-motion:reduce)').matches;
+ const upd=()=>{$('#fs').textContent=`Pikë: ${score} · Koha: ${t}`};
+ el.innerHTML=`<p>Kap sa më shumë fenerë brenda 25 sekondave. Fenerët e artë vlejnë 3 pikë. <b id="fs">Pikë: 0 · Koha: 25</b></p><div class="lg" id="lg"></div><div id="gres"><button class="next" id="gs">Fillo lojën</button></div>`;
+ $('#gs').onclick=()=>{score=0;t=25;$('#gres').innerHTML='';const area=$('#lg');area.innerHTML='';upd();
+  gTimers.push(setInterval(()=>{const g=Math.random()<.15,b=document.createElement('button');
+   b.className='ln'+(g?' gold':'');b.setAttribute('aria-label','Fener');b.style.left=(Math.random()*86)+'%';
+   if(rm){b.style.bottom=(10+Math.random()*70)+'%';setTimeout(()=>b.remove(),1800)}else{b.style.animationDuration=(2.8+Math.random()*2.2)+'s';b.addEventListener('animationend',()=>b.remove())}
+   b.onclick=()=>{score+=g?3:1;b.remove();upd()};area.appendChild(b)},520));
+  gTimers.push(setInterval(()=>{t--;upd();if(t<=0){stopG();area.innerHTML='';$('#gres').innerHTML=`<h3>Koha mbaroi! Rezultati: ${score} pikë.</h3><button class="next" id="gs2">Luaj përsëri</button>`;$('#gs2').onclick=gstart}},1000))};
+}
+gmenu();gstart();
+const PG=['home','harta','dinastite','ngjarjet','shpikjet','gjuha','kuizi','loje'];
+function go(){stopG();let p=location.hash.slice(1);if(!PG.includes(p))p='home';document.body.dataset.p=p;
+ document.querySelectorAll('main>section').forEach(s=>s.classList.toggle('on',s.id===p));
+ document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('cur',a.getAttribute('href')==='#'+p));window.scrollTo(0,0);if(p==='loje')gstart()}
+addEventListener('hashchange',go);go();
+</script>
+</body>
+</html>
